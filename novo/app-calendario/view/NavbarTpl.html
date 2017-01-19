@@ -1,0 +1,210 @@
+<meta charset="UTF-8">
+
+<nav class="cabecalho">
+  <div class="nav-wrapper">
+    <a href="/#/" class="brand-logo left">
+      <img src="dev/img/logo.png" alt="logo" class="logo">
+    </a>
+    <ul class="right menu">
+      <li class="logado hide-on-med-and-down">
+        <a href="/#/">Início</a>
+      </li>
+      <!-- <li class="logado" ng-show="true"> -->
+        <!-- OCULTAR O BOTÃO DE MINHA CONTA -->
+        <!-- <a href="" ng-show="showMinhaConta()" ng-click="goToMyAccount()">{{minhaContaText}}</a> -->
+      <!-- </li> -->
+      <li ng-if="true">
+        <!-- OCULTAR O BOTÃO DE BUSCA -->
+        <a href="" class="icon icon-busca" ng-class="isBuscaOpened ? 'ativo' : ''" id="search" ng-click="abreBuscaHeader()"></a>
+      </li>
+      <li>
+        <a href="" class="icon icon-account" ng-class="isLoginOpened ? 'ativo' : ''" id="account" ng-click="abreLoginHeader()"></a>
+      </li>
+      <li class="logado" ng-if="false">
+        <!-- OCULTAR O BOTÃO DE NOTIFICAÇÕES -->
+        <a class="circle white right alerta"></a>
+        <a href="" class="icon icon-notify" ng-click="showNotify()" ng-show="showButtonNotify()"></a>
+      </li>
+      <li class="logado profile-logout-button" ng-show="showMinhaConta()" ng-click="logout()">
+        <i class="material-icons">&#xE879;</i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="right notificar" id="notify" ng-show="isShowNotify">
+  <p class="not">
+    Notificações
+    <img src="dev/img/config.png" class="iconfig">
+  </p>
+  <hr class="separador">
+  <div class="row" class="uma">
+    <div class="col l4 s12">
+      <img src="dev/img/video.png" width="110px" height="70px">
+    </div>
+    <div class="col l8 s12">
+      <p class="enfase">Nome do Vídeo</p>
+      <p class="extra">Nome do Canal</p>
+      <p class="extra">78 visualizações | há 5 dias</p>
+    </div>
+  </div>
+  <hr class="separador">
+  <p class="center-align">
+    <a href="NotifyTpl.html" class="ver ">Ver todas as notificações</a></p>
+</div>
+
+<div class="busca" id="busca" ng-show="isBuscaOpened" ng-mouseleave="mouseLeaveBusca()">
+  <form>
+    <div class="row">
+      <div class="col l7 offset-l3 s12">
+        <input type="text" class="campo" ng-model="formSearch.query">
+        <input href="ResultTpl.html" type="submit" class="botao" value="Pesquisar" ng-click="search(formSearch)">
+      </div>
+      <!-- <div class="col l1 offset-l3 s6">
+        <div ng-if="!formSearch.isVideos">
+          <input type="checkbox" class="filled-in" id="vid" ng-click="setVideoToSearch(formSearch)" /> <label for="vid" class="filtros">Vídeos</label>
+        </div>
+        <div ng-if="formSearch.isVideos">
+          <input type="checkbox" class="filled-in" id="vid" ng-click="setVideoToSearch(formSearch)" checked/> <label for="vid" class="filtros">Vídeos</label>
+        </div>
+      </div>
+      <div class="col l1 s6">
+        <input type="checkbox" class="filled-in" id="canal" ng-click="setChannelToSearch(formSearch)" ng-if="!formSearch.isChannels" /> <label for="canal" class="filtros" ng-if="!formSearch.isChannels">Programas</label>
+        <input type="checkbox" class="filled-in" id="canal" ng-click="setChannelToSearch(formSearch)" ng-if="formSearch.isChannels" / checked> <label for="canal" class="filtros" ng-if="formSearch.isChannels">Programas</label>
+      </div>
+      <div class="col l1 s6">
+        <input type="checkbox" class="filled-in" id="playlist" ng-click="setPlaylistToSearch(formSearch)" ng-if="!formSearch.isPlaylists" /> <label for="playlist" class="filtros" ng-if="!formSearch.isPlaylists">Playlists</label>
+
+        <input type="checkbox" class="filled-in" id="playlist" ng-click="setPlaylistToSearch(formSearch)" ng-if="formSearch.isPlaylists" checked/> <label for="playlist" class="filtros" ng-if="formSearch.isPlaylists">Playlists</label>
+      </div> -->
+      <!--div class="col l7 offset-l3 s12">
+            <p href="#!" class="filtros" onClick="getFiltros()"> Outros Filtros <i class="material-icons md-90" id="outros">keyboard_arrow_down</i></p>
+          </div-->
+    </div>
+
+    <!--hr class="delimitador" id="delimitador">
+  			<div class="options" id="options">
+  				<ul>
+  					<li>
+  						<a href="#!" class="filtros" onClick="getDuracao()">Data de Upload <i class="material-icons icon">arrow_drop_down</i></a>
+  						<a href="#!" class="filtros">Duração <i class="material-icons icon">arrow_drop_down</i></a>
+  						<a href="#!" class="filtros">Classificação <i class="material-icons icon">arrow_drop_down</i></a>
+
+  					</li>
+  					<div class="details" id="duracoes">
+              <input type="checkbox" class="ingrid" id="hoje"/><label for="hoje" class="topico">Hoje</label>
+              <input type="checkbox" class="ingrid" id="semana"/><label for="semana" class="topico">Há uma semana</label>
+              <input type="checkbox" class="ingrid" id="mes"/><label for="mes" class="topico">Há um mês</label>
+
+
+  					</div>
+  				</ul>
+  			</div>
+  			<hr class="delimitador" id="delimitador2"-->
+  </form>
+</div>
+
+<div class="row login" id="login" ng-show="isLoginOpened" ng-mouseleave="mouseLeaveLogin()">
+  <div id="principal" ng-show="isNotLogged">
+    <div class="formulario col l7 s12" id="formulario">
+      <ul>
+        <li><a class="label">Email</a></li>
+        <li><input type="email" class="campo" ng-model="formLogin.username" tabindex="1" /></li>
+        <li><a class="label">Senha</a><a href="" ng-click="changeNewPasswd()" class="label2">Esqueceu a senha?</a></li>
+        <li>
+          <input type="password" ng-keyup="checkLogin($event.keyCode, formLogin)" class="campo" ng-model="formLogin.password" tabindex="2" />
+          <input type="submit" class="entrar" value="Entrar" ng-click="login(formLogin)" tabindex="3" />
+        </li>
+        <li>
+        <p style="color:#FFFFFF">
+            {{errorMessage}}
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div class="cadastro col l5 s12" id="cadastro">
+      <p class="label">Mas se você ainda não tem cadastro.</p>
+      <input type="submit" class="cadastre" value="CADASTRE-SE" ng-click="newAccount()">
+    </div>
+  </div>
+  <div class="atualizarr col l7 s12 offset-l3" id="novo" ng-show="isNewPasswd">
+    <ul>
+      <li><a class="label">Email</a></li>
+      <li>
+        <input type="email" class="campo" ng-model="formReset.email">
+        <input type="submit" class="entrar" value="Enviar" ng-click="resetPassword(formReset)">
+        <input type="submit" class="entrar" value="Cancelar" ng-click="cancelChangeNewPasswd()">
+      </li>
+    </ul>
+  </div>
+  <!-- <div class="cadastro col l12 s12 atualizarr" id="bemvindo" ng-show="isLogged">
+    <p class="label">Seja bem vindo(a), {{userFirstName | split:"@":0}}</p>
+    <input type="submit" class="entrar atualizar" ng-click="updateRegister()" value="Atualizar Cadastro" ng-show="false">
+    <input type="submit" class="entrar" value="SAIR" ng-click="logout()">
+  </div> -->
+  <div class="row atualizarr" id="atuali" ng-show="isUpdate">
+    <div class="col l5 s12 offset-l1">
+      <ul>
+        <li><a class="label">Nome</a></li>
+        <li><input type="text" class="campo" ng-model="formUpdate.fullname"></li>
+        <li><a class="label">Email</a></li>
+        <li><input type="email" class="campo" ng-model="formUpdate.username"></li>
+      </ul>
+    </div>
+    <div class="col l5 s12">
+      <ul>
+        <li><a class="label">Senha</a></li>
+        <li><input type="password" class="campo" ng-model="formUpdate.password"></li>
+        <li><a class="label">Repetir senha</a></li>
+        <li><input type="password" class="campo" ng-model="formUpdate.repassword"></li>
+      </ul>
+
+      <input type="submit" class="cadastre atual" value="ATUALIZAR" ng-click="updateUser(formUpdate)">
+      <input type="submit" class="cadastre atual" ng-click="cancelUpdateRegister()" value="CANCELAR">
+    </div>
+  </div>
+  <div class="row atualizarr" id="cadastroo" ng-show="isNewAccount">
+    <div class="col l5 offset-l1 s12">
+      <ul>
+        <li><a class="label">Nome</a></li>
+        <li><input type="text" class="campo" ng-model="formCreate.fullname"></li>
+        <li><a class="label">Email</a></li>
+        <li><input type="email" class="campo" ng-model="formCreate.username"></li>
+        <li>
+          <p>
+            <input ng-model="formCreate.isTermsRead" type="checkbox" id="terms" />
+            <label class="label" for="terms">Declaro ter lido, compreendido e concordado com a <a target="_blank" href="#/terms">Política de Privacidade e Termos e Condições de Uso</a></label>
+          </p>
+        </li>
+        <li>
+          <p style="color:#FFFFFF">
+            {{errorRegisterMessage}}
+          </p>
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="col l5 s12">
+      <ul>
+        <li><a class="label">Data de Nascimento</a></li>
+        <li><input type="text" class="campo" ng-model="formCreate.dtBorn"
+          placeholder="(ex: 20/10/1990)" ></li>
+        <li><a class="label">Gênero</a></li>
+        <li><select class="browser-default campo select-gender-register" ng-model="formCreate.gender">
+          <option value="male">Masculino</option>
+          <option value="female">Feminino</option>
+        </select></li>
+      </ul>
+    </div> -->
+    <div class="col l5 s12">
+      <ul>
+        <li><a class="label">Senha</a></li>
+        <li><input type="password" class="campo" ng-model="formCreate.password"></li>
+        <li><a class="label">Repetir senha</a></li>
+        <li><input type="password" class="campo" ng-model="formCreate.repassword"></li>
+      </ul>
+
+      <input type="submit" class="cadastre atual" value="CADASTRE-SE" ng-click="createAccount(formCreate)">
+      <input type="submit" class="cadastre atual" ng-click="cancelNewAccount()" value="CANCELAR">
+    </div>
+  </div>
+</div>

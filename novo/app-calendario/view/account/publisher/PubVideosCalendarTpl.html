@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Gerencie sua Grade</title>
+</head>
+<body ng-controller="PubVideosCalendarCtrl">
+    <main class="minhasplaylists">
+      <div class="row">
+        <div class="categorias col s12">
+          <input type="submit" class="categoria selecionado" value="Gerencie sua Grade">
+          <hr class="hr2">
+        </div>
+      </div>
+      <div class="conteudo">
+        <div class="row lista">
+          <div class="col l12 s12">
+          </div>
+          <div class="sobre row">
+            <div class="row">
+              <div class="col l12 s12 item">
+                <img src="dev/img/playlist.png" class="icone about">
+                <p class="principal">Gerencie sua Grade</p>
+              </div>
+            </div>
+            <div class="grupo" id="grupo">
+            <main>
+             
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container">
+              <h4 class="header center-on-small-only">{{dataAtual}}</h4>
+            </div>
+            
+          <div class="container">
+            <div class="section">
+
+              <div class="row">
+                <a class="waves-effect waves-light btn red"><</a> <!-- Caminhar para trás -->
+                <a class="waves-effect waves-light btn red">Hoje</a> <!-- Caminhas para hoje -->
+                <a class="waves-effect waves-light btn red">></a> <!-- Caminhar para frente -->
+                <a class="waves-effect waves-light btn red"><i class="material-icons">today</i></a> <!-- Calendário -->
+                <a class="waves-effect waves-light btn red"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
+                <a class="waves-effect waves-light btn red"><i class="material-icons">movie</i></a> <!-- busca dos vídeos -->
+                <table class="bordered">
+                    <tr>
+                        <td></td>
+                        <td ng-repeat="diaSemana in diasSemana">
+                            {{diaSemana}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="programacao in programacoes">
+                        <td>{{programacao.hora}}</td>
+                        <td>{{programacao.programas[0]}}</td> <!-- Domingo -->
+                        <td>{{programacao.programas[1]}}</td> <!-- Segunda -->
+                        <td>{{programacao.programas[2]}}</td> <!-- Terça -->
+                        <td>{{programacao.programas[3]}}</td> <!-- Quarta -->
+                        <td>{{programacao.programas[4]}}</td> <!-- Quinta -->
+                        <td>{{programacao.programas[5]}}</td> <!-- Sexta -->
+                        <td>{{programacao.programas[6]}}</td> <!-- Sábado -->
+                    </tr>
+                <table>
+               </div>
+            </div>
+        </div>
+            </div>
+                </div>
+            </div>
+          </div>
+      </div>
+    </main>
+</body>
+</html>

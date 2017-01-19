@@ -1,0 +1,30 @@
+.ui-alert{
+	background-color: #F2DEDE;
+	padding: 20px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.ui-alert-title{
+	color: #AF4341;
+	font-weight: bold;
+	font-size: 24px;
+}
+.ui-alert-message{
+	color: #AF4341;
+}
+.ui-accordion-title{
+	font-weight: bold;
+	font-size: 24px;
+	padding: 5px;
+	background-color: #40E0D0;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.ui-accordion-content{
+	font-size: 14px;
+	padding: 5px;
+	margin: 5px;
+	background-color: #FFFFFF;
+}
