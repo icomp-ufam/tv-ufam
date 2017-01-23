@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Gerencie sua Grade</title>
+</head>
+<body ng-controller="PubVideosCalendarCtrl">
+    <main class="minhasplaylists">
+      <div class="row">
+        <div class="categorias col s12">
+          <input type="submit" class="categoria selecionado" value="Gerencie sua Grade">
+          <hr class="hr2">
+        </div>
+      </div>
+      <div class="conteudo">
+        <div class="row lista">
+          <div class="col l12 s12">
+          </div>
+          <div class="sobre row">
+            <div class="row">
+              <div class="col l12 s12 item">
+                <img src="dev/img/playlist.png" class="icone about">
+                <p class="principal">{{app}}</p>
+              </div>
+            </div>
+            <div class="grupo" id="grupo">
+            <main>
+             
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container"> 
+                <div class="row">
+                  <div class="input-field col s12">
+                    <select id="program" class="browser-default" ng-model="program.name" ng-options="program.title for program in programs">
+                      <option value="" disabled selected>Selecione um programa</option>
+                    </select>
+                    <label for="program">Programa</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <input id="date" type="date" class="datepicker" ng-model="program.date">
+                    <label for="date">Data</label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <input id="hour" ng-model="program.hour" type="text" class="validate">
+                    <label for="hour">Hora</label>
+                  </div>
+
+                  <button class="btn">Adicionar programa</button>
+                </div> 
+            </div>
+        </div>
+            </div>
+                </div>
+            </div>
+          </div>
+      </div>
+    </main>
+</body>
+</html>

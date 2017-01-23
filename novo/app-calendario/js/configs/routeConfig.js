@@ -7,6 +7,12 @@ angular.module("icomptvApp")
       templateUrl: "view/account/publisher/PubVideosCalendarTpl.html",
       controller: "PubVideosCalendarCtrl"
     });
+
+    $routeProvider.when("/account/publisher/videos/insert", {
+      templateUrl: "view/account/publisher/PubVideosInsertTpl.html",
+      controller: "PubVideosInsertCtrl"
+    });
+
     $routeProvider.otherwise({
       redirectTo: "/account/publisher/videos/calendar"
     });
