@@ -13,6 +13,12 @@ angular.module("icomptvApp")
       controller: "PubVideosInsertCtrl"
     });
 
+    $routeProvider.when("/account/publisher/videos/view", {
+      templateUrl: "view/account/publisher/PubVideosViewTpl.html",
+      controller: "PubVideosViewCtrl"
+    });
+
+
     $routeProvider.otherwise({
       redirectTo: "/account/publisher/videos/calendar"
     });

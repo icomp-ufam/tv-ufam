@@ -27,3 +27,8 @@ table td {
   text-align: center;
 }
 
+.tbsquare {
+  background: #e8e8e8;
+  border-radius: 5px;
+}
+
