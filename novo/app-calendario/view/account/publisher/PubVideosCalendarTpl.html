@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Expires" content="Tue, 01 Jan 2000 12:12:12 GMT">
-    <meta http-equiv="Pragma" content="no-cache">
     <title>Gerencie sua Grade</title>
 </head>
 <body ng-controller="PubVideosCalendarCtrl">
@@ -53,8 +51,8 @@
                     </tr>
                     <tr ng-repeat="horario in horarios">
                         <td>{{horario.horario}}</td>
-                        <td> <!-- Domingo -->
-                          <div class="tbsquare" ng-repeat="programa in horario.diasSemana[0]">
+                        <td ng-repeat="diaSemana in horario.diasSemana">
+                          <div class="tbsquare" ng-repeat="programa in diaSemana">
                             <p>{{programa.inic}} - {{programa.term}}</p>
                             <p><a href=""> {{programa.tit}}</a></p>
                             <p>
@@ -62,65 +60,7 @@
                               <a href=""><i class="tiny material-icons">delete</i></a>
                             </p>
                           </div>
-                        </td> 
-                        <td> <!-- Segunda -->
-                          <div class="tbsquare" ng-repeat="programa in horario.diasSemana[1]">
-                            <p>{{programa.inic}} - {{programa.term}}</p>
-                            <p><a href=""> {{programa.tit}}</a></p>
-                            <p>
-                              <a href=""><i class="tiny material-icons">edit</i></a>
-                              <a href=""><i class="tiny material-icons">delete</i></a>
-                            </p>
-                          </div>
-                        </td> 
-                        <td> <!-- Terça -->
-                          <div class="tbsquare" ng-repeat="programa in horario.diasSemana[2]">
-                            <p>{{programa.inic}} - {{programa.term}}</p>
-                            <p><a href=""> {{programa.tit}}</a></p>
-                            <p>
-                              <a href=""><i class="tiny material-icons">edit</i></a>
-                              <a href=""><i class="tiny material-icons">delete</i></a>
-                            </p>
-                          </div>
-                        </td> 
-                        <td> <!-- Quarta -->
-                          <div class="tbsquare" ng-repeat="programa in horario.diasSemana[3]">
-                            <p>{{programa.inic}} - {{programa.term}}</p>
-                            <p><a href=""> {{programa.tit}}</a></p>
-                            <p>
-                              <a href=""><i class="tiny material-icons">edit</i></a>
-                              <a href=""><i class="tiny material-icons">delete</i></a>
-                            </p>
-                          </div>
-                        </td> 
-                        <td> <!-- Quinta -->
-                          <div class="tbsquare" ng-repeat="programa in horario.diasSemana[4]">
-                            <p>{{programa.inic}} - {{programa.term}}</p>
-                            <p><a href=""> {{programa.tit}}</a></p>
-                            <p>
-                              <a href=""><i class="tiny material-icons">edit</i></a>
-                              <a href=""><i class="tiny material-icons">delete</i></a>
-                            </p>
-                          </div>
-                        </td> <td> <!-- Sexta -->
-                          <div class="tbsquare" ng-repeat="programa in horario.diasSemana[5]">
-                            <p>{{programa.inic}} - {{programa.term}}</p>
-                            <p><a href=""> {{programa.tit}}</a></p>
-                            <p>
-                              <a href=""><i class="tiny material-icons">edit</i></a>
-                              <a href=""><i class="tiny material-icons">delete</i></a>
-                            </p>
-                          </div>
-                        </td> <td> <!-- Sábado -->
-                          <div class="tbsquare" ng-repeat="programa in horario.diasSemana[6]">
-                            <p>{{programa.inic}} - {{programa.term}}</p>
-                            <p><a href=""> {{programa.tit}}</a></p>
-                            <p>
-                              <a href=""><i class="tiny material-icons">edit</i></a>
-                              <a href=""><i class="tiny material-icons">delete</i></a>
-                            </p>
-                          </div>
-                        </td> 
+                        </td>  
                     </tr>
                 <table>
                </div>
