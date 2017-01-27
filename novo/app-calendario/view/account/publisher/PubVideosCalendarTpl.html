@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
@@ -42,27 +42,7 @@
                 <a class="waves-effect waves-light btn red"><i class="material-icons">today</i></a> <!-- Calendário -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">movie</i></a> <!-- busca dos vídeos -->
-                <table class="bordered">
-                   <tr>
-                        <td></td>
-                        <td ng-repeat="diaSemana in diasSemana">
-                            {{diaSemana}}
-                        </td>
-                    </tr>
-                    <tr ng-repeat="horario in horarios">
-                        <td>{{horario.horario}}</td>
-                        <td ng-repeat="diaSemana in horario.diasSemana">
-                          <div class="tbsquare" ng-repeat="programa in diaSemana">
-                            <p>{{programa.inic}} - {{programa.term}}</p>
-                            <p><a href=""> {{programa.tit}}</a></p>
-                            <p>
-                              <a href=""><i class="tiny material-icons">edit</i></a>
-                              <a href=""><i class="tiny material-icons">delete</i></a>
-                            </p>
-                          </div>
-                        </td>  
-                    </tr>
-                <table>
+                <div ng-include="'grid/grid.html'"></div>
                </div>
             </div>
         </div>
