@@ -215,8 +215,8 @@ angular.module("icomptvApp")
 				eventHeight = event.innerHeight(),
 				eventWidth = event.innerWidth();
 
-			var windowWidth = $(window).width(),
-				windowHeight = $(window).height();
+      var windowWidth = window.innerWidth,
+				windowHeight = window.innerHeight;
 
 			var modalWidth = ( windowWidth*.8 > self.modalMaxWidth ) ? self.modalMaxWidth : windowWidth*.8,
 				modalHeight = ( windowHeight*.8 > self.modalMaxHeight ) ? self.modalMaxHeight : windowHeight*.8;
