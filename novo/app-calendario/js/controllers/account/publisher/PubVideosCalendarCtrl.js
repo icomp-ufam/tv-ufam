@@ -19,7 +19,8 @@ angular.module("icomptvApp")
 
     $scope.diasSemana = dayName;
 
-    $scope.horas = ["00:00",
+    $scope.horas = 	[
+    				"00:00",
 				    "00:30",
 				    "01:00",
 				    "01:30",
