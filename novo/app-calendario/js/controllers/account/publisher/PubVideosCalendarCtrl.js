@@ -17,27 +17,27 @@ angular.module("icomptvApp")
 
     $scope.dataAtual = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
 
-    $scope.diasSemana = dayName;
+    $scope.diasSemana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
 
     $scope.horas = 	[
-    				"00:00",
-				    "00:30",
-				    "01:00",
-				    "01:30",
-				    "02:00",
-				    "02:30",
-				    "03:00",
-				    "03:30",
-				    "04:00",
-				    "04:30",
-				    "05:00",
-				    "05:30",
-				    "06:00",
-				    "06:30",
-				    "07:00",
-				    "07:30",
-				    "08:00",
-				    "08:30",
+    				//"00:00",
+				    //"00:30",
+				    //"01:00",
+				    //"01:30",
+				    //"02:00",
+				    //"02:30",
+				    //"03:00",
+				    //"03:30",
+				    //"04:00",
+				    //"04:30",
+				    //"05:00",
+				    //"05:30",
+				    //"06:00",
+				    //"06:30",
+				    //"07:00",
+				    //"07:30",
+				    //"08:00",
+				    //"08:30",
 				    "09:00",
 				    "09:30",
 				    "10:00",
@@ -56,72 +56,37 @@ angular.module("icomptvApp")
 				    "16:30",
 				    "17:00",
 				    "17:30",
-				    "18:00",
-				    "18:30",
-				    "19:00",
-				    "19:30",
-				    "20:00",
-				    "20:30",
-				    "21:00",
-				    "21:30",
-				    "22:00",
-				    "22:30",
-				    "23:00",
-				    "23:30"
+				    "18:00"
+				    //"18:30",
+				    //"19:00",
+				    //"19:30",
+				    //"20:00",
+				    //"20:30",
+				    //"21:00",
+				    //"21:30",
+				    //"22:00",
+				    //"22:30",
+				    //"23:00",
+				    //"23:30"
     				];
 
 
     //Representa a programação de uma semana inteira
-    $scope.horarios = [];
+    $scope.programacao = [];
 
-    for (i=0, len = $scope.horas.length; i<len; ++i) {
-      $scope.horarios.push(
+    for (i=0, len = $scope.diasSemana.length; i<len; ++i) {
+      $scope.programacao.push(
                                 {
-                                  //Representa o horário que o programa passa
-                                  horario: $scope.horas[i],
+                                  dia: $scope.diasSemana[i],
 
-                                  //Representa todos os dias da semana, começando por Domingo e terminando no Sábado.
-                                  diasSemana: [[], [], [], [], [], [], []]
+                                  programas: []
                                 }
                               );
     }
 
-    $scope.adicionarPrograma = function ($diaSemana, $horaInicio, $minInicio, $horaTermino, $minTermino, $tituloPrograma) {
-      if ($horaInicio < 10) {
-        $horaInicioStr = "0" + $horaInicio + ":";
-      }
-      else {
-        $horaInicioStr = $horaInicio + ":";
-      }
+    //$scope.adicionarPrograma = function ($diaSemana, $horaInicio, $minInicio, $horaTermino, $minTermino, $tituloPrograma) {
 
-      if ($minInicio < 10) {
-        $horaInicioStr = $horaInicioStr + "0" + $minInicio;
-      }
-      else {
-        $horaInicioStr = $horaInicioStr + $minInicio;
-      }
-
-      if ($horaTermino < 10) {
-        $horaTerminoStr = "0" + $horaTermino + ":";
-      }
-      else {
-        $horaTerminoStr = $horaTermino + ":";
-      }
-
-      if ($minTermino < 10) {
-        $horaTerminoStr = $horaTerminoStr + "0" + $minTermino;
-      }
-      else {
-        $horaTerminoStr = $horaTerminoStr + $minTermino;
-      }
-
-      $scope.horarios[$horaInicio].diasSemana[$diaSemana].push({inic: $horaInicioStr, term: $horaTerminoStr, tit: $tituloPrograma});
-    }
-
-    $scope.adicionarPrograma(1, 1, 0, 1, 30, "Teste");
-    $scope.adicionarPrograma(1, 1, 30, 2, 0, "Teste Dois");
-    $scope.adicionarPrograma(4, 2, 0, 3, 0, "Teste Tres");
-    $scope.adicionarPrograma(4, 3, 0, 3, 45, "Teste Quatro");
+    //}
 
     jQuery(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
@@ -241,10 +206,8 @@ angular.module("icomptvApp")
 		this.modal.attr('data-event', event.parent().attr('data-event'));
 
 		//update event content
-		this.modalBody.find('.event-info').load('grid/events/'+event.parent().attr('data-content')+'.html .event-info > *', function(data){
-			//once the event content has been loaded
-			self.element.addClass('content-loaded');
-		});
+		this.modalBody.find('.event-info')[0].innerHTML = '<div>' + events_info[event.parent().attr('data-content').replace(/-/g,'_')]['info'] + '</div>';
+    	self.element.addClass('content-loaded');
 
 		this.element.addClass('modal-is-open');
 
