@@ -11,6 +11,15 @@ angular.module("icomptvApp")
   ) {
     AppLogSvc.log("PubVideosCalendarCtrl iniciado.");
 
+    var events_info = {
+      'event_abs_circuit': {
+        'info': 'SASAt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?'
+      },
+      'event_restorative_yoga': {
+        'info': 'Restorative Yoga. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?'
+      }
+    };
+
     now = new Date;
     dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
     monName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
@@ -84,40 +93,50 @@ angular.module("icomptvApp")
                               );
     }
 
-    $scope.adicionarPrograma = function ($diaSemana, $horaInicio, $minInicio, $horaTermino, $minTermino, $nomeModal, $tituloPrograma) {
-		if ($horaInicio < 10) {
-			$horaInicioStr = "0" + $horaInicio + ":";
+    $scope.adicionarPrograma = function (idPrograma, diaSemana, horaInicio, minInicio, horaTermino, minTermino, nomeModal, tituloPrograma) {
+		if (horaInicio < 10) {
+			horaInicioStr = "0" + horaInicio + ":";
 		}
 		else {
-			$horaInicioStr = $horaInicio + ":";
+			horaInicioStr = horaInicio + ":";
 		}
 
-		if ($minInicio < 10) {
-			$horaInicioStr = $horaInicioStr + "0" + $minInicio;
+		if (minInicio < 10) {
+			horaInicioStr = horaInicioStr + "0" + minInicio;
 		}
 		else {
-			$horaInicioStr = $horaInicioStr + $minInicio;
+			horaInicioStr = horaInicioStr + minInicio;
 		}
 
-		if ($horaTermino < 10) {
-			$horaTerminoStr = "0" + $horaTermino + ":";
+		if (horaTermino < 10) {
+			horaTerminoStr = "0" + horaTermino + ":";
 		}
 		else {
-			$horaTerminoStr = $horaTermino + ":";
+			horaTerminoStr = horaTermino + ":";
 		}
 
-		if ($minTermino < 10) {
-			$horaTerminoStr = $horaTerminoStr + "0" + $minTermino;
+		if (minTermino < 10) {
+			horaTerminoStr = horaTerminoStr + "0" + minTermino;
 		}
 		else {
-			$horaTerminoStr = $horaTerminoStr + $minTermino;
+			horaTerminoStr = horaTerminoStr + minTermino;
 		}
 
-    	$scope.programacoes[$diaSemana].programas.push({dataStart: $horaInicioStr, dataEnd: $horaTerminoStr, dataContent: $nomeModal, eventName: $tituloPrograma});
-    	//$scope.horarios[$horaInicio].diasSemana[$diaSemana].push({inic: $horaInicioStr, term: $horaTerminoStr, tit: $tituloPrograma});
+    	$scope.programacoes[diaSemana].programas.push({id: idPrograma, dataStart: horaInicioStr, dataEnd: horaTerminoStr, dataContent: nomeModal, eventName: tituloPrograma});
+    	
     }
 
-    $scope.adicionarPrograma(0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
+    $scope.removerPrograma = function (programacoes, idPrograma) {
+    	console.log("Passei por aqui");
+
+    	$scope.programacoes = programacoes.filter(function (programacao) {
+    		programacao = programacao.filter(function (programa) {
+    			if (!programa.id == idPrograma) return programa;
+    		});
+    	});
+    }
+
+    $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
 
     jQuery(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
@@ -236,13 +255,26 @@ angular.module("icomptvApp")
 		this.modalHeader.find('.event-date').text(event.find('.event-date').text());
 		this.modal.attr('data-event', event.parent().attr('data-event'));
 
-		//update event content
-		this.modalBody.find('.event-info').load('grid/events/'+event.parent().attr('data-content')+'.html .event-info > *', function(data){
-			//once the event content has been loaded
-			self.element.addClass('content-loaded');
-		});
+    	//update event content
+    	this.modalBody.find('.event-info')[0].innerHTML = 
+    	'<div>\
+  			<div class="modal-btns">\
+  				<p>\
+  					<a href="#" class="waves-effect waves-light red darken-3 btn"><i class="material-icons left">edit</i>Editar</a>\
+					<a href="#" class="waves-effect waves-light red darken-3 btn"><i ng-click="removerPrograma(programacoes, 0)" class="material-icons left">delete</i>Excluir</a>\
+					<button ng-click="removerPrograma(programacoes, 0)">Teste</button>\
+  				</p>\
+  			</div>\
+  			<div>' 
+  				+ events_info[event.parent().attr('data-content').replace(/-/g,'_')]['info'] + 
+  			'</div>\
+  		</div>';
+		
+		//once the event content has been loaded
+		self.element.addClass('content-loaded');
 
 		this.element.addClass('modal-is-open');
+
 
 		setTimeout(function(){
 			//fixes a flash when an event is selected - desktop version only
