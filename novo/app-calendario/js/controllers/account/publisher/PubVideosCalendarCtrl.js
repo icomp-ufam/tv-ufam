@@ -72,10 +72,10 @@ angular.module("icomptvApp")
 
 
     //Representa a programação de uma semana inteira
-    $scope.programacao = [];
+    $scope.programacoes = [];
 
     for (i=0, len = $scope.diasSemana.length; i<len; ++i) {
-      $scope.programacao.push(
+      $scope.programacoes.push(
                                 {
                                   dia: $scope.diasSemana[i],
 
@@ -84,9 +84,40 @@ angular.module("icomptvApp")
                               );
     }
 
-    //$scope.adicionarPrograma = function ($diaSemana, $horaInicio, $minInicio, $horaTermino, $minTermino, $tituloPrograma) {
+    $scope.adicionarPrograma = function ($diaSemana, $horaInicio, $minInicio, $horaTermino, $minTermino, $nomeModal, $tituloPrograma) {
+		if ($horaInicio < 10) {
+			$horaInicioStr = "0" + $horaInicio + ":";
+		}
+		else {
+			$horaInicioStr = $horaInicio + ":";
+		}
 
-    //}
+		if ($minInicio < 10) {
+			$horaInicioStr = $horaInicioStr + "0" + $minInicio;
+		}
+		else {
+			$horaInicioStr = $horaInicioStr + $minInicio;
+		}
+
+		if ($horaTermino < 10) {
+			$horaTerminoStr = "0" + $horaTermino + ":";
+		}
+		else {
+			$horaTerminoStr = $horaTermino + ":";
+		}
+
+		if ($minTermino < 10) {
+			$horaTerminoStr = $horaTerminoStr + "0" + $minTermino;
+		}
+		else {
+			$horaTerminoStr = $horaTerminoStr + $minTermino;
+		}
+
+    	$scope.programacoes[$diaSemana].programas.push({dataStart: $horaInicioStr, dataEnd: $horaTerminoStr, dataContent: $nomeModal, eventName: $tituloPrograma});
+    	//$scope.horarios[$horaInicio].diasSemana[$diaSemana].push({inic: $horaInicioStr, term: $horaTerminoStr, tit: $tituloPrograma});
+    }
+
+    $scope.adicionarPrograma(0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
 
     jQuery(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
@@ -206,8 +237,10 @@ angular.module("icomptvApp")
 		this.modal.attr('data-event', event.parent().attr('data-event'));
 
 		//update event content
-		this.modalBody.find('.event-info')[0].innerHTML = '<div>' + events_info[event.parent().attr('data-content').replace(/-/g,'_')]['info'] + '</div>';
-    	self.element.addClass('content-loaded');
+		this.modalBody.find('.event-info').load('grid/events/'+event.parent().attr('data-content')+'.html .event-info > *', function(data){
+			//once the event content has been loaded
+			self.element.addClass('content-loaded');
+		});
 
 		this.element.addClass('modal-is-open');
 

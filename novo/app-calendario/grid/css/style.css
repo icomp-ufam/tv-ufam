@@ -28,6 +28,7 @@ a {
 Main Components 
 
 -------------------------------- */
+
 .cd-schedule {
   position: relative;
   margin: 2em 0;
@@ -333,6 +334,15 @@ Main Components
   background: #f7bd7f;
 }
 
+.cd-schedule .single-event[data-event="event-5"],
+.cd-schedule [data-event="event-4"] .header-bg {
+  background: #ff3333;
+}
+
+.cd-schedule .single-event[data-event="event-5"]:hover {
+  background: #ff8080;
+}
+
 .cd-schedule .event-modal {
   position: fixed;
   z-index: 3;
@@ -603,4 +613,9 @@ Main Components
 .cd-schedule.modal-is-open .cover-layer {
   opacity: 1;
   visibility: visible;
+}
+
+.modal-btns {
+  text-align: left;
+  margin-bottom: 20px;
 }
