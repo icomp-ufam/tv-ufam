@@ -123,7 +123,7 @@ angular.module("icomptvApp")
 		}
 
     	$scope.programacoes[diaSemana].programas.push({id: idPrograma, dataStart: horaInicioStr, dataEnd: horaTerminoStr, dataContent: nomeModal, eventName: tituloPrograma});
-    	
+
     }
 
     $scope.removerPrograma = function (programacoes, idPrograma) {
@@ -255,22 +255,24 @@ angular.module("icomptvApp")
 		this.modalHeader.find('.event-date').text(event.find('.event-date').text());
 		this.modal.attr('data-event', event.parent().attr('data-event'));
 
-    	//update event content
-    	this.modalBody.find('.event-info')[0].innerHTML = 
-    	'<div>\
-  			<div class="modal-btns">\
-  				<p>\
-  					<a href="#" class="waves-effect waves-light red darken-3 btn"><i class="material-icons left">edit</i>Editar</a>\
-					<a href="#" class="waves-effect waves-light red darken-3 btn"><i ng-click="removerPrograma(programacoes, 0)" class="material-icons left">delete</i>Excluir</a>\
-					<button ng-click="removerPrograma(programacoes, 0)">Teste</button>\
-  				</p>\
-  			</div>\
-  			<div>' 
-  				+ events_info[event.parent().attr('data-content').replace(/-/g,'_')]['info'] + 
-  			'</div>\
-  		</div>';
-		
-		//once the event content has been loaded
+    // update delete event function to delete the right event
+    $scope.deleteEvent = function () {
+      //console.log('Delete ' + event.find('.event-id').text());
+
+      idPrograma = event.find('.event-id').text();
+
+      for (i=0, lenProgramacoes = $scope.programacoes.length; i < lenProgramacoes; ++i) {
+      	for (j=0, lenProgramacao = $scope.programacoes[i].programas.length; j < lenProgramacao; ++j) {
+      		if ($scope.programacoes[i].programas[j].id == idPrograma) {
+      			$scope.programacoes[i].programas.splice(j, 1);
+      		}
+      	}
+      }
+    }
+
+  	//update event content
+    $scope.eventInfo = events_info[event.parent().attr('data-content').replace(/-/g,'_')]['info'];
+    $scope.$apply();
 		self.element.addClass('content-loaded');
 
 		this.element.addClass('modal-is-open');

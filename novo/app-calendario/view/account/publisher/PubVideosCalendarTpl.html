@@ -43,7 +43,7 @@
                 <a class="waves-effect waves-light btn red"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">movie</i></a> <!-- busca dos vídeos -->
                 <div class="cd-schedule loading">
-                
+
 				<div class="timeline">
 					<ul>
 						<li ng-repeat="hora in horas">
@@ -60,6 +60,7 @@
 							<ul>
 								<li class="single-event" ng-repeat="programa in programacao.programas" data-start={{programa.dataStart}} data-end={{programa.dataEnd}} data-content={{programa.dataContent}} data-event="event-5">
 									<a href="#0">
+										<em class="event-id" ng-show="false">{{programa.id}}</em>
 										<em class="event-name">{{programa.eventName}}</em>
 									</a>
 								</li>
@@ -80,7 +81,19 @@
 					</header>
 
 					<div class="body">
-						<div class="event-info"></div>
+            <div class="event-info">
+            	<div>
+            		<div class="modal-btns">
+            			<p>
+            				<a href="#" class="waves-effect waves-light btn"><i class="material-icons left">edit</i>Editar</a>
+            				<a href="#" class="waves-effect waves-light btn" ng-click="deleteEvent()"><i class="material-icons left">delete</i>Excluir</a>
+            			</p>
+            		</div>
+            		<div>
+            			{{eventInfo}}
+            		</div>
+            	</div>
+            </div>
 						<div class="body-bg"></div>
 					</div>
 
