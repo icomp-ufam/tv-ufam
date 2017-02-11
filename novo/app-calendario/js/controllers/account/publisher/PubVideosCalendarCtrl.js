@@ -129,14 +129,15 @@ angular.module("icomptvApp")
     $scope.removerPrograma = function (programacoes, idPrograma) {
     	console.log("Passei por aqui");
 
-    	$scope.programacoes = programacoes.filter(function (programacao) {
+    	$scope.programacoes = programacoes.map(function (programacao) {
     		programacao = programacao.filter(function (programa) {
-    			if (!programa.id == idPrograma) return programa;
+    			if (!programa.id == idPrograma) return true;
     		});
     	});
     }
 
     $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
+    $scope.adicionarPrograma(0, 0, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 2");
 
     jQuery(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
@@ -150,6 +151,7 @@ angular.module("icomptvApp")
 		this.element = element;
 		this.timeline = this.element.find('.timeline');
 		this.timelineItems = this.timeline.find('li');
+
 		this.timelineItemsNumber = this.timelineItems.length;
 		this.timelineStart = getScheduleTimestamp(this.timelineItems.eq(0).text());
 		//need to store delta (in our case half hour) timestamp
@@ -257,17 +259,23 @@ angular.module("icomptvApp")
 
     // update delete event function to delete the right event
     $scope.deleteEvent = function () {
-      //console.log('Delete ' + event.find('.event-id').text());
+      console.log('Delete ' + event.find('.event-id').text());
 
-      idPrograma = event.find('.event-id').text();
-
+      var i, j, lenProgramacao, lenProgramacoes;
+      var idPrograma = event.find('.event-id').text();
+      console.log($scope.programacoes);
       for (i=0, lenProgramacoes = $scope.programacoes.length; i < lenProgramacoes; ++i) {
       	for (j=0, lenProgramacao = $scope.programacoes[i].programas.length; j < lenProgramacao; ++j) {
       		if ($scope.programacoes[i].programas[j].id == idPrograma) {
       			$scope.programacoes[i].programas.splice(j, 1);
-      		}
+            break;
+          }
       	}
       }
+
+      objSchedulesPlan.forEach(function(element){
+				element.closeModal(element.eventsGroup.find('.selected-event'));
+			});
     }
 
   	//update event content
