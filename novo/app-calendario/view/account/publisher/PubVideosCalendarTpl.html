@@ -29,7 +29,7 @@
 
         <div class="section no-pad-bot" id="index-banner">
             <div class="container">
-              <h4 class="header center-on-small-only">{{dataAtual}}</h4>
+              <h4 class="header center-on-small-only">{{dataCorrente}}</h4>
             </div>
 
           <div class="container">
@@ -55,7 +55,7 @@
 				<div class="events">
 					<ul>
 						<li class="events-group" ng-repeat="programacao in grade">
-							<div class="top-info"><span>{{programacao.dia}}</span></div>
+							<div class="top-info" ng-class="{'current-day': programacao.diaCorrente}"><span>{{programacao.dia}}</span></div>
 
 							<ul>
 								<li class="single-event" ng-repeat="programa in programacao.programas" data-start={{programa.dataStart}} data-end={{programa.dataEnd}} data-content={{programa.dataContent}} data-event="event-5">
@@ -85,8 +85,8 @@
             	<div>
             		<div class="modal-btns">
             			<p>
-            				<a href="" class="waves-effect waves-light btn"><i class="material-icons left">edit</i>Editar</a>
-            				<a id="delete-button" href="" class="waves-effect waves-light btn" ng-click="deleteEvent()"><i class="material-icons left">delete</i>Excluir</a>
+            				<a href="" class="waves-effect waves-light btn red"><i class="material-icons left">edit</i>Editar</a>
+            				<a id="delete-button" href="" class="waves-effect waves-light btn red" ng-click="deleteEvent()"><i class="material-icons left">delete</i>Excluir</a>
             			</p>
             		</div>
             		<div>

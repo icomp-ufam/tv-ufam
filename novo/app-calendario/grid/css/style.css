@@ -335,7 +335,7 @@ Main Components
 }
 
 .cd-schedule .single-event[data-event="event-5"],
-.cd-schedule [data-event="event-4"] .header-bg {
+.cd-schedule [data-event="event-5"] .header-bg {
   background: #ff3333;
 }
 
@@ -618,4 +618,9 @@ Main Components
 .modal-btns {
   text-align: left;
   margin-bottom: 20px;
+}
+
+.current-day {
+  background-color: #ff3333 !important;
+  color: white !important;
 }

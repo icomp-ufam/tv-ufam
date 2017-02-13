@@ -20,13 +20,31 @@ angular.module("icomptvApp")
       }
     };
 
-    now = new Date;
-    dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-    monName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    $scope.dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+    $scope.monName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-    $scope.dataAtual = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
+    $scope.construirData = function (dayName, monName, now) {
+    	$scope.dataCorrente = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
+    } 
 
-    $scope.diasSemana = dayName;
+    $scope.inicializarData = function () {
+    	$scope.now = new Date;
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    }
+
+    $scope.inicializarData();
+
+    $scope.proximoDia = function () {
+    	$scope.now.setDate($scope.now.getDate() + 1);
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    }
+
+    $scope.diaAnterior = function () {
+    	$scope.now.setDate($scope.now.getDate() - 1);
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    }
+
+    $scope.diasProgramacao = $scope.dayName;
 
     $scope.horas = 	[
     				//"00:00",
@@ -83,10 +101,10 @@ angular.module("icomptvApp")
     //Representa toda a programacao
     $scope.programacoes = [];
 
-    for (i=0, len = $scope.diasSemana.length; i<len; ++i) {
+    for (i=0, len = $scope.diasProgramacao.length; i<len; ++i) {
       $scope.programacoes.push(
                                 {
-                                  dia: $scope.diasSemana[i],
+                                  dia: $scope.diasProgramacao[i],
 
                                   programas: []
                                 }
@@ -101,27 +119,42 @@ angular.module("icomptvApp")
     $scope.currentDay = $scope.defaultDay;
 
     $scope.atualizarGrade = function() {
+    	
+    	//Checa se a grade ja existe, se sim, seta o dia corrente atual como false
+    	if ($scope.grade) $scope.grade[2].diaCorrente = false;
+
     	//Representa o que aparecera na grade
     	$scope.grade = $scope.programacoes.slice($scope.currentDay - 2, $scope.currentDay + 3);
+
+
+    	$scope.grade[2].diaCorrente = true;
     }
 
     $scope.atualizarGrade();
 
     $scope.moveLeft = function() {
-    	if ($scope.currentDay - 2 > 0) --$scope.currentDay;
+    	if ($scope.currentDay - 2 > 0) {
+    		--$scope.currentDay;
 
-    	$scope.atualizarGrade();
+    		$scope.diaAnterior();
+    		$scope.atualizarGrade();
+    	}
     }
 
     $scope.moveRight = function() {
-    	if ($scope.currentDay + 3 < $scope.programacoes.length) ++$scope.currentDay;
+    	if ($scope.currentDay + 3 < $scope.programacoes.length) {
+    		++$scope.currentDay;
 
-    	$scope.atualizarGrade();
+    		$scope.proximoDia();
+    		$scope.atualizarGrade();
+    	}
     }
 
     $scope.moveToToday = function() {
     	$scope.currentDay = $scope.defaultDay;
+    	$scope.now = new Date;
 
+    	$scope.inicializarData();
     	$scope.atualizarGrade();
     }
 
@@ -173,7 +206,8 @@ angular.module("icomptvApp")
     }
 
     $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
-    $scope.adicionarPrograma(0, 0, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 2");
+    $scope.adicionarPrograma(1, 1, 9, 30, 10, 30, "event-abs-circuit", "Você na TV 2");
+    $scope.adicionarPrograma(2, 1, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
 
     jQuery(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
