@@ -20,13 +20,31 @@ angular.module("icomptvApp")
       }
     };
 
-    now = new Date;
-    dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-    monName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    $scope.dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+    $scope.monName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-    $scope.dataAtual = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
+    $scope.construirData = function (dayName, monName, now) {
+    	$scope.dataCorrente = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
+    } 
 
-    $scope.diasProgramacao = dayName;
+    $scope.inicializarData = function () {
+    	$scope.now = new Date;
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    }
+
+    $scope.inicializarData();
+
+    $scope.proximoDia = function () {
+    	$scope.now.setDate($scope.now.getDate() + 1);
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    }
+
+    $scope.diaAnterior = function () {
+    	$scope.now.setDate($scope.now.getDate() - 1);
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    }
+
+    $scope.diasProgramacao = $scope.dayName;
 
     $scope.horas = 	[
     				//"00:00",
@@ -115,20 +133,28 @@ angular.module("icomptvApp")
     $scope.atualizarGrade();
 
     $scope.moveLeft = function() {
-    	if ($scope.currentDay - 2 > 0) --$scope.currentDay;
+    	if ($scope.currentDay - 2 > 0) {
+    		--$scope.currentDay;
 
-    	$scope.atualizarGrade();
+    		$scope.diaAnterior();
+    		$scope.atualizarGrade();
+    	}
     }
 
     $scope.moveRight = function() {
-    	if ($scope.currentDay + 3 < $scope.programacoes.length) ++$scope.currentDay;
+    	if ($scope.currentDay + 3 < $scope.programacoes.length) {
+    		++$scope.currentDay;
 
-    	$scope.atualizarGrade();
+    		$scope.proximoDia();
+    		$scope.atualizarGrade();
+    	}
     }
 
     $scope.moveToToday = function() {
     	$scope.currentDay = $scope.defaultDay;
+    	$scope.now = new Date;
 
+    	$scope.inicializarData();
     	$scope.atualizarGrade();
     }
 
