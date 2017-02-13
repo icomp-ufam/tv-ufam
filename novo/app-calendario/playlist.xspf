@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<playlist xmlns='http://xspf.org/ns/0/' xmlns:vlc='http://www.videolan.org/vlc/playlist/ns/0/' version='1'>
+    <title>Lista de reprodução</title>
+    <trackList>
+            <track>
+                <location>file:///home/duivilly/V%C3%ADdeos/VID-20170203-WA0001.mp4</location>
+                <duration>4666</duration>
+                <extension application='http://www.videolan.org/vlc/playlist/0'>
+                    <vlc:id>0</vlc:id>
+                </extension>
+            </track>
+    
+            <track>
+                <location>file:///home/duivilly/V%C3%ADdeos/VID-20170210-WA0000.mp4</location>
+                <duration>4666</duration>
+                <extension application='http://www.videolan.org/vlc/playlist/0'>
+                    <vlc:id>1</vlc:id>
+                </extension>
+            </track>
+            
+    </trackList>
+    <extension application='http://www.videolan.org/vlc/playlist/0'>
+
+            <vlc:item tid='0'/>
+    
+            <vlc:item tid='1'/>
+            
+    </extension>
+</playlist>

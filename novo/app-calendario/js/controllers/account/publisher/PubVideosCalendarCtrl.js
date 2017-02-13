@@ -160,6 +160,18 @@ angular.module("icomptvApp")
 
     }
 
+    //funcao para baixar grade
+    $scope.baixarGrade= function(){
+    	$.ajax({
+			type: 'post',
+		 	url: 'xml.php',
+			data: {
+				location: "",
+		    	duration: ""
+		  } /* ... */
+		});
+    }
+
     $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
     $scope.adicionarPrograma(0, 0, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 2");
 
