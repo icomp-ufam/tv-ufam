@@ -26,7 +26,7 @@ angular.module("icomptvApp")
 
     $scope.dataAtual = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
 
-    $scope.diasSemana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
+    $scope.diasSemana = dayName;
 
     $scope.horas = 	[
     				//"00:00",
@@ -80,7 +80,7 @@ angular.module("icomptvApp")
     				];
 
 
-    //Representa a programação de uma semana inteira
+    //Representa toda a programacao
     $scope.programacoes = [];
 
     for (i=0, len = $scope.diasSemana.length; i<len; ++i) {
@@ -92,6 +92,40 @@ angular.module("icomptvApp")
                                 }
                               );
     }
+
+    
+    //Representa o dia atual
+    $scope.defaultDay = 3;
+
+    //Representa o dia escolhido
+    $scope.currentDay = $scope.defaultDay;
+
+    $scope.atualizarGrade = function() {
+    	//Representa o que aparecera na grade
+    	$scope.grade = $scope.programacoes.slice($scope.currentDay - 2, $scope.currentDay + 3);
+    }
+
+    $scope.atualizarGrade();
+
+    $scope.moveLeft = function() {
+    	if ($scope.currentDay - 2 > 0) --$scope.currentDay;
+
+    	$scope.atualizarGrade();
+    }
+
+    $scope.moveRight = function() {
+    	if ($scope.currentDay + 3 < $scope.programacoes.length) ++$scope.currentDay;
+
+    	$scope.atualizarGrade();
+    }
+
+    $scope.moveToToday = function() {
+    	$scope.currentDay = $scope.defaultDay;
+
+    	$scope.atualizarGrade();
+    }
+
+    
 
     $scope.adicionarPrograma = function (idPrograma, diaSemana, horaInicio, minInicio, horaTermino, minTermino, nomeModal, tituloPrograma) {
 		if (horaInicio < 10) {
@@ -124,16 +158,6 @@ angular.module("icomptvApp")
 
     	$scope.programacoes[diaSemana].programas.push({id: idPrograma, dataStart: horaInicioStr, dataEnd: horaTerminoStr, dataContent: nomeModal, eventName: tituloPrograma});
 
-    }
-
-    $scope.removerPrograma = function (programacoes, idPrograma) {
-    	console.log("Passei por aqui");
-
-    	$scope.programacoes = programacoes.map(function (programacao) {
-    		programacao = programacao.filter(function (programa) {
-    			if (!programa.id == idPrograma) return true;
-    		});
-    	});
     }
 
     $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
@@ -259,11 +283,11 @@ angular.module("icomptvApp")
 
     // update delete event function to delete the right event
     $scope.deleteEvent = function () {
-      console.log('Delete ' + event.find('.event-id').text());
+      //console.log('Delete ' + event.find('.event-id').text());
 
       var i, j, lenProgramacao, lenProgramacoes;
       var idPrograma = event.find('.event-id').text();
-      console.log($scope.programacoes);
+      //console.log($scope.programacoes);
       for (i=0, lenProgramacoes = $scope.programacoes.length; i < lenProgramacoes; ++i) {
       	for (j=0, lenProgramacao = $scope.programacoes[i].programas.length; j < lenProgramacao; ++j) {
       		if ($scope.programacoes[i].programas[j].id == idPrograma) {

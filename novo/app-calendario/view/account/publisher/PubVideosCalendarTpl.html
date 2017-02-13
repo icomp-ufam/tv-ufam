@@ -36,9 +36,9 @@
             <div class="section">
 
               <div class="row">
-                <a class="waves-effect waves-light btn red"><</a> <!-- Caminhar para trás -->
-                <a class="waves-effect waves-light btn red">Hoje</a> <!-- Caminhas para hoje -->
-                <a class="waves-effect waves-light btn red">></a> <!-- Caminhar para frente -->
+                <a class="waves-effect waves-light btn red" ng-click="moveLeft()"><</a> <!-- Caminhar para trás -->
+                <a class="waves-effect waves-light btn red" ng-click="moveToToday()">Hoje</a> <!-- Caminhar para hoje -->
+                <a class="waves-effect waves-light btn red" ng-click="moveRight()">></a> <!-- Caminhar para frente -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">today</i></a> <!-- Calendário -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">movie</i></a> <!-- busca dos vídeos -->
@@ -54,7 +54,7 @@
 
 				<div class="events">
 					<ul>
-						<li class="events-group" ng-repeat="programacao in programacoes">
+						<li class="events-group" ng-repeat="programacao in grade">
 							<div class="top-info"><span>{{programacao.dia}}</span></div>
 
 							<ul>
