@@ -619,3 +619,8 @@ Main Components
   text-align: left;
   margin-bottom: 20px;
 }
+
+.current-day {
+  background-color: #ff3333 !important;
+  color: white !important;
+}

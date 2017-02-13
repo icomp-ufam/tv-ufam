@@ -26,7 +26,7 @@ angular.module("icomptvApp")
 
     $scope.dataAtual = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
 
-    $scope.diasSemana = dayName;
+    $scope.diasProgramacao = dayName;
 
     $scope.horas = 	[
     				//"00:00",
@@ -83,10 +83,10 @@ angular.module("icomptvApp")
     //Representa toda a programacao
     $scope.programacoes = [];
 
-    for (i=0, len = $scope.diasSemana.length; i<len; ++i) {
+    for (i=0, len = $scope.diasProgramacao.length; i<len; ++i) {
       $scope.programacoes.push(
                                 {
-                                  dia: $scope.diasSemana[i],
+                                  dia: $scope.diasProgramacao[i],
 
                                   programas: []
                                 }
@@ -101,8 +101,15 @@ angular.module("icomptvApp")
     $scope.currentDay = $scope.defaultDay;
 
     $scope.atualizarGrade = function() {
+    	
+    	//Checa se a grade ja existe, se sim, seta o dia corrente atual como false
+    	if ($scope.grade) $scope.grade[2].diaCorrente = false;
+
     	//Representa o que aparecera na grade
     	$scope.grade = $scope.programacoes.slice($scope.currentDay - 2, $scope.currentDay + 3);
+
+
+    	$scope.grade[2].diaCorrente = true;
     }
 
     $scope.atualizarGrade();
@@ -161,7 +168,8 @@ angular.module("icomptvApp")
     }
 
     $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
-    $scope.adicionarPrograma(0, 0, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 2");
+    $scope.adicionarPrograma(1, 1, 9, 30, 10, 30, "event-abs-circuit", "Você na TV 2");
+    $scope.adicionarPrograma(2, 1, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
 
     jQuery(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
