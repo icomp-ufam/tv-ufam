@@ -122,26 +122,20 @@ angular.module("icomptvApp")
     $scope.currentDay = $scope.defaultDay;
 
     $scope.atualizarGrade = function() {
-      console.log($scope.grade);
-    	//Checa se a grade ja existe, se sim, seta o dia corrente atual como false
-    	if ($scope.grade) $scope.grade[2].diaCorrente = false;
-
-    	//Representa o que aparecera na grade
-    	$scope.grade = $scope.programacoes.slice($scope.currentDay - 2, $scope.currentDay + 3);
-
-
-    	$scope.grade[2].diaCorrente = true;
-
       console.log('atualizar');
-      objSchedulesPlan.forEach(function(element){
-  			element.scheduleReset();
-  		});
+      if ($scope.initSchedules) {
+        $timeout(function () {
+          $scope.initSchedules();
+        }, 100);
+
+      }
     }
 
     $scope.atualizarGrade();
 
     $scope.moveLeft = function() {
     	if ($scope.currentDay - 2 > 0) {
+        console.log('moving');
     		--$scope.currentDay;
 
     		$scope.diaAnterior();
@@ -151,6 +145,7 @@ angular.module("icomptvApp")
 
     $scope.moveRight = function() {
     	if ($scope.currentDay + 3 < $scope.programacoes.length) {
+        console.log('moving');
     		++$scope.currentDay;
 
     		$scope.proximoDia();
@@ -227,6 +222,8 @@ angular.module("icomptvApp")
 
 	function SchedulePlan( element ) {
 		this.element = element;
+    console.log('element');
+    console.log(element);
 		this.timeline = this.element.find('.timeline');
 		this.timelineItems = this.timeline.find('li');
 
@@ -234,6 +231,7 @@ angular.module("icomptvApp")
 		this.timelineStart = getScheduleTimestamp(this.timelineItems.eq(0).text());
 		//need to store delta (in our case half hour) timestamp
 		this.timelineUnitDuration = getScheduleTimestamp(this.timelineItems.eq(1).text()) - getScheduleTimestamp(this.timelineItems.eq(0).text());
+
 
 		this.eventsWrapper = this.element.find('.events');
 		this.eventsGroup = this.eventsWrapper.find('.events-group');
@@ -260,13 +258,13 @@ angular.module("icomptvApp")
 
 	SchedulePlan.prototype.scheduleReset = function() {
 		var mq = this.mq();
-		if( mq == 'desktop' && !this.element.hasClass('js-full') ) {
+		if( mq == 'desktop') {
 			//in this case you are on a desktop version (first load or resize from mobile)
 			this.eventSlotHeight = this.eventsGroup.eq(0).children('.top-info').outerHeight();
 			this.element.addClass('js-full');
 			this.placeEvents();
 			this.element.hasClass('modal-is-open') && this.checkEventModal();
-		} else if(  mq == 'mobile' && this.element.hasClass('js-full') ) {
+		} else if(  mq == 'mobile') {
 			//in this case you are on a mobile version (first load or resize from desktop)
 			this.element.removeClass('js-full loading');
 			this.eventsGroup.children('ul').add(this.singleEvents).removeAttr('style');
@@ -283,17 +281,15 @@ angular.module("icomptvApp")
 
 	SchedulePlan.prototype.initEvents = function() {
 		var self = this;
+    this.modal.off('click');
+    this.element.off('click');
 
 		this.singleEvents.each(function(){
-			//create the .event-date element for each event
-			var durationLabel = '<span class="event-date">'+$(this).data('start')+' - '+$(this).data('end')+'</span>';
-			$(this).children('a').prepend($(durationLabel));
-
 			//detect click on the event and open the modal
 			$(this).on('click', 'a', function(event){
-				event.preventDefault();
-				if( !self.animating ) self.openModal($(this));
-			});
+        event.preventDefault();
+        if( !self.animating ) self.openModal($(this));
+      });
 		});
 
 		//close modal window
@@ -308,6 +304,7 @@ angular.module("icomptvApp")
 
 	SchedulePlan.prototype.placeEvents = function() {
 		var self = this;
+    console.log('place Events');
     console.log(this.singleEvents);
 		this.singleEvents.each(function(){
 			//place each event in the grid -> need to set top position and height
@@ -352,6 +349,7 @@ angular.module("icomptvApp")
       	}
       }
 
+      console.log(objSchedulesPlan);
       objSchedulesPlan.forEach(function(element){
 				element.closeModal(element.eventsGroup.find('.selected-event'));
 			});
@@ -442,7 +440,8 @@ angular.module("icomptvApp")
 		var mq = self.mq();
 
 		this.animating = true;
-
+    console.log('event');
+    console.log(event);
 		if( mq == 'mobile' ) {
 			this.element.removeClass('modal-is-open');
 			this.modal.one(transitionEnd, function(){
@@ -570,29 +569,35 @@ angular.module("icomptvApp")
 		}
 	};
 
-	var schedules = $('.cd-schedule');
+  $scope.initSchedules = function initSchedules () {
+    var schedules = $('.cd-schedule');
+    objSchedulesPlan = [];
+    console.log('initSchedules');
+    console.log(schedules);
+  	if( schedules.length > 0 ) {
+  		schedules.each(function(){
+  			//create SchedulePlan objects
+  			objSchedulesPlan.push(new SchedulePlan($(this)));
+  		});
+  	}
+  }
 
-	if( schedules.length > 0 ) {
-		schedules.each(function(){
-			//create SchedulePlan objects
-			objSchedulesPlan.push(new SchedulePlan($(this)));
-		});
-	}
+  $scope.initSchedules();
 
-	$(window).on('resize', function(){
-		if( !windowResize ) {
-			windowResize = true;
-			(!window.requestAnimationFrame) ? setTimeout(checkResize) : window.requestAnimationFrame(checkResize);
-		}
-	});
+  $(window).on('resize', function(){
+    if( !windowResize ) {
+      windowResize = true;
+      (!window.requestAnimationFrame) ? setTimeout(checkResize) : window.requestAnimationFrame(checkResize);
+    }
+  });
 
-	$(window).keyup(function(event) {
-		if (event.keyCode == 27) {
-			objSchedulesPlan.forEach(function(element){
-				element.closeModal(element.eventsGroup.find('.selected-event'));
-			});
-		}
-	});
+  $(window).keyup(function(event) {
+    if (event.keyCode == 27) {
+      objSchedulesPlan.forEach(function(element){
+        element.closeModal(element.eventsGroup.find('.selected-event'));
+      });
+    }
+  });
 
 	function checkResize(){
 		objSchedulesPlan.forEach(function(element){
