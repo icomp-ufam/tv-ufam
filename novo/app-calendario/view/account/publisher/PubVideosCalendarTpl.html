@@ -54,8 +54,8 @@
 
 				<div class="events">
 					<ul>
-						<li class="events-group" ng-repeat="programacao in programacoes | startAt: currentDay - 2 | limitTo: currentDay + 3 ">
-							<div class="top-info" ng-class="{'current-day': programacao.diaCorrente}"><span>{{programacao.dia}}</span></div>
+						<li class="events-group" ng-repeat="programacao in programacoes | startAt: min | limitTo: max ">
+							<div class="top-info" ng-class="{'current-day': programacao.diaSelecionado}"><span>{{programacao.dia}}</span></div>
 
 							<ul>
 								<li class="single-event" ng-repeat="programa in programacao.programas" data-start={{programa.dataStart}} data-end={{programa.dataEnd}} data-content={{programa.dataContent}} data-event="event-5">

@@ -114,25 +114,19 @@ angular.module("icomptvApp")
                               );
     }
 
-
     //Representa o dia atual
-    $scope.defaultDay = 3;
+    $scope.currentDay = 3;
 
     //Representa o dia escolhido
-    $scope.currentDay = $scope.defaultDay;
+    $scope.selectedDay = $scope.currentDay;
+
+    $scope.programacoes[$scope.selectedDay].diaSelecionado = true;
+
+    //Representa o que será mostrado na grade
+    $scope.min = $scope.selectedDay - 2;
+    $scope.max = $scope.selectedDay + 2;
 
     $scope.atualizarGrade = function() {
-      console.log($scope.grade);
-    	//Checa se a grade ja existe, se sim, seta o dia corrente atual como false
-    	if ($scope.grade) $scope.grade[2].diaCorrente = false;
-
-    	//Representa o que aparecera na grade
-    	$scope.grade = $scope.programacoes.slice($scope.currentDay - 2, $scope.currentDay + 3);
-
-
-    	$scope.grade[2].diaCorrente = true;
-
-      console.log('atualizar');
       objSchedulesPlan.forEach(function(element){
   			element.scheduleReset();
   		});
@@ -141,8 +135,16 @@ angular.module("icomptvApp")
     $scope.atualizarGrade();
 
     $scope.moveLeft = function() {
-    	if ($scope.currentDay - 2 > 0) {
-    		--$scope.currentDay;
+    	if ($scope.selectedDay -1 >= 0) {
+    		
+    		$scope.programacoes[$scope.selectedDay].diaSelecionado = false;
+    		--$scope.selectedDay;
+    		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
+
+    		if ($scope.min - 1 >= 0) {
+    			--$scope.min;
+    			--$scope.max;
+    		}
 
     		$scope.diaAnterior();
     		$scope.atualizarGrade();
@@ -150,8 +152,16 @@ angular.module("icomptvApp")
     }
 
     $scope.moveRight = function() {
-    	if ($scope.currentDay + 3 < $scope.programacoes.length) {
-    		++$scope.currentDay;
+    	if ($scope.selectedDay +1 < $scope.programacoes.length) {
+    		
+    		$scope.programacoes[$scope.selectedDay].diaSelecionado = false;
+    		++$scope.selectedDay;
+    		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
+
+    		if ($scope.max + 1 < $scope.programacoes.length) {
+    			++$scope.min;
+    			++$scope.max;
+    		}
 
     		$scope.proximoDia();
     		$scope.atualizarGrade();
@@ -159,7 +169,7 @@ angular.module("icomptvApp")
     }
 
     $scope.moveToToday = function() {
-    	$scope.currentDay = $scope.defaultDay;
+    	$scope.selectedDay = $scope.currentDay;
     	$scope.now = new Date;
 
     	$scope.inicializarData();
@@ -308,7 +318,6 @@ angular.module("icomptvApp")
 
 	SchedulePlan.prototype.placeEvents = function() {
 		var self = this;
-    console.log(this.singleEvents);
 		this.singleEvents.each(function(){
 			//place each event in the grid -> need to set top position and height
 			var start = getScheduleTimestamp($(this).attr('data-start')),
