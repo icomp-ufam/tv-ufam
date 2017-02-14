@@ -61,6 +61,7 @@
 							<ul>
 								<li class="single-event" ng-repeat="programa in programacao.programas" data-start={{programa.dataStart}} data-end={{programa.dataEnd}} data-content={{programa.dataContent}} data-event="event-5">
 									<a href="">
+                    <span class="event-date">{{programa.dataStart}} - {{programa.dataEnd}}</span>
 										<em class="event-id" ng-show="false">{{programa.id}}</em>
 										<em class="event-name">{{programa.eventName}}</em>
 									</a>
