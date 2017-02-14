@@ -41,7 +41,8 @@
                 <a class="waves-effect waves-light btn red" ng-click="moveRight()">></a> <!-- Caminhar para frente -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">today</i></a> <!-- Calendário -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">movie</i></a> <!-- busca dos vídeos -->
-                <a href="playlist.xspf" download class="waves-effect waves-light btn red" ng-click="baixarGrade()"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
+                <!--a href="playlist.xspf" download class="waves-effect waves-light btn red" ng-click="baixarGrade()"><i class="material-icons">system_update_alt</i></a--> <!-- Baixar Grade -->
+                <a class="waves-effect waves-light btn red" ng-click="showExportModal()"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
                 <div class="cd-schedule loading">
 
 				<div class="timeline">
@@ -99,6 +100,16 @@
 
 					<a href="#0" class="close">Close</a>
 				</div>
+
+          <div id="export-modal" class="modal">
+            <div class="modal-content">
+              <h4>Modal Header</h4>
+              <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+          </div>
 
 				<div class="cover-layer"></div>
 			</div> <!-- .cd-schedule -->

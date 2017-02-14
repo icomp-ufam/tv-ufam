@@ -23,6 +23,14 @@ angular.module("icomptvApp")
       }
     };
 
+    $scope.showExportModal = function () {
+    	$('#export-modal').modal('open');
+    }
+
+    $scope.closeExportModal = function () {
+    	$('#export-modal').modal('close');
+    }
+
     $scope.dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
     $scope.monName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
