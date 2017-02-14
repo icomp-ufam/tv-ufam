@@ -621,6 +621,9 @@ Main Components
 }
 
 .current-day {
-  background-color: #ff3333 !important;
-  color: white !important;
+  background-color: #d9d9d9 !important;
+}
+
+.current-day + ul {
+  background-color: #e6e6e6 !important;
 }

@@ -214,8 +214,8 @@ angular.module("icomptvApp")
     }
 
     $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
-    $scope.adicionarPrograma(1, 1, 9, 30, 10, 30, "event-abs-circuit", "Você na TV 2");
-    $scope.adicionarPrograma(2, 1, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(1, 3, 9, 30, 10, 30, "event-abs-circuit", "Você na TV 2");
+    $scope.adicionarPrograma(2, 3, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
 
     jQuery(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
