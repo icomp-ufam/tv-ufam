@@ -135,7 +135,7 @@ angular.module("icomptvApp")
     $scope.max = $scope.selectedDay + 2;
 
     $scope.atualizarGrade = function() {
-      console.log('atualizar');
+      //console.log('atualizar');
       if ($scope.initSchedules) {
         $timeout(function () {
           $scope.initSchedules();
@@ -250,8 +250,8 @@ angular.module("icomptvApp")
 
 	function SchedulePlan( element ) {
 		this.element = element;
-    console.log('element');
-    console.log(element);
+    	//console.log('element');
+    	//console.log(element);
 		this.timeline = this.element.find('.timeline');
 		this.timelineItems = this.timeline.find('li');
 
@@ -332,11 +332,6 @@ angular.module("icomptvApp")
 
 	SchedulePlan.prototype.placeEvents = function() {
 		var self = this;
-<<<<<<< HEAD
-=======
-    console.log('place Events');
-    console.log(this.singleEvents);
->>>>>>> fix-schedule
 		this.singleEvents.each(function(){
 			//place each event in the grid -> need to set top position and height
 			var start = getScheduleTimestamp($(this).attr('data-start')),
@@ -380,7 +375,7 @@ angular.module("icomptvApp")
       	}
       }
 
-      console.log(objSchedulesPlan);
+      //console.log(objSchedulesPlan);
       objSchedulesPlan.forEach(function(element){
 				element.closeModal(element.eventsGroup.find('.selected-event'));
 			});
@@ -471,8 +466,8 @@ angular.module("icomptvApp")
 		var mq = self.mq();
 
 		this.animating = true;
-    console.log('event');
-    console.log(event);
+    	//console.log('event');
+    	//console.log(event);
 		if( mq == 'mobile' ) {
 			this.element.removeClass('modal-is-open');
 			this.modal.one(transitionEnd, function(){
@@ -603,8 +598,8 @@ angular.module("icomptvApp")
   $scope.initSchedules = function initSchedules () {
     var schedules = $('.cd-schedule');
     objSchedulesPlan = [];
-    console.log('initSchedules');
-    console.log(schedules);
+    //console.log('initSchedules');
+    //console.log(schedules);
   	if( schedules.length > 0 ) {
   		schedules.each(function(){
   			//create SchedulePlan objects
