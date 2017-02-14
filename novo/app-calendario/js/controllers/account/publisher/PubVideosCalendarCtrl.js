@@ -181,7 +181,12 @@ angular.module("icomptvApp")
     }
 
     $scope.moveToToday = function() {
+    	$scope.programacoes[$scope.selectedDay].diaSelecionado = false;
+
     	$scope.selectedDay = $scope.currentDay;
+
+    	$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
+    	
     	$scope.min = $scope.selectedDay - 2;
     	$scope.max = $scope.selectedDay + 2;
 
