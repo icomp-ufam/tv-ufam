@@ -11,6 +11,9 @@ angular.module("icomptvApp")
   ) {
     AppLogSvc.log("PubVideosCalendarCtrl iniciado.");
 
+    var objSchedulesPlan = [],
+  		windowResize = false;
+
     var events_info = {
       'event_abs_circuit': {
         'info': 'SASAt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?'
@@ -25,7 +28,7 @@ angular.module("icomptvApp")
 
     $scope.construirData = function (dayName, monName, now) {
     	$scope.dataCorrente = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
-    } 
+    }
 
     $scope.inicializarData = function () {
     	$scope.now = new Date;
@@ -111,7 +114,7 @@ angular.module("icomptvApp")
                               );
     }
 
-    
+
     //Representa o dia atual
     $scope.defaultDay = 3;
 
@@ -119,7 +122,7 @@ angular.module("icomptvApp")
     $scope.currentDay = $scope.defaultDay;
 
     $scope.atualizarGrade = function() {
-    	
+      console.log($scope.grade);
     	//Checa se a grade ja existe, se sim, seta o dia corrente atual como false
     	if ($scope.grade) $scope.grade[2].diaCorrente = false;
 
@@ -128,6 +131,11 @@ angular.module("icomptvApp")
 
 
     	$scope.grade[2].diaCorrente = true;
+
+      console.log('atualizar');
+      objSchedulesPlan.forEach(function(element){
+  			element.scheduleReset();
+  		});
     }
 
     $scope.atualizarGrade();
@@ -158,7 +166,7 @@ angular.module("icomptvApp")
     	$scope.atualizarGrade();
     }
 
-    
+
 
     $scope.adicionarPrograma = function (idPrograma, diaSemana, horaInicio, minInicio, horaTermino, minTermino, nomeModal, tituloPrograma) {
 		if (horaInicio < 10) {
@@ -300,6 +308,7 @@ angular.module("icomptvApp")
 
 	SchedulePlan.prototype.placeEvents = function() {
 		var self = this;
+    console.log(this.singleEvents);
 		this.singleEvents.each(function(){
 			//place each event in the grid -> need to set top position and height
 			var start = getScheduleTimestamp($(this).attr('data-start')),
@@ -562,8 +571,6 @@ angular.module("icomptvApp")
 	};
 
 	var schedules = $('.cd-schedule');
-	var objSchedulesPlan = [],
-		windowResize = false;
 
 	if( schedules.length > 0 ) {
 		schedules.each(function(){

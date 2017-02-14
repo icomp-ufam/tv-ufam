@@ -54,12 +54,12 @@
 
 				<div class="events">
 					<ul>
-						<li class="events-group" ng-repeat="programacao in grade">
+						<li class="events-group" ng-repeat="programacao in programacoes | startAt:1 | limitTo:5">
 							<div class="top-info" ng-class="{'current-day': programacao.diaCorrente}"><span>{{programacao.dia}}</span></div>
 
 							<ul>
 								<li class="single-event" ng-repeat="programa in programacao.programas" data-start={{programa.dataStart}} data-end={{programa.dataEnd}} data-content={{programa.dataContent}} data-event="event-5">
-									<a href="#0">
+									<a href="">
 										<em class="event-id" ng-show="false">{{programa.id}}</em>
 										<em class="event-name">{{programa.eventName}}</em>
 									</a>
