@@ -24,11 +24,13 @@ angular.module("icomptvApp")
     };
 
     $scope.showExportModal = function () {
-    	$('#export-modal').modal('open');
+    	console.log("show-export-modal");
+    	$('#exportmodal').modal('open');
     }
 
     $scope.closeExportModal = function () {
-    	$('#export-modal').modal('close');
+    	console.log("close-export-modal")
+    	$('#exportmodal').modal('close');
     }
 
     $scope.dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
@@ -133,6 +135,7 @@ angular.module("icomptvApp")
     //Representa o que será mostrado na grade
     $scope.min = $scope.selectedDay - 2;
     $scope.max = $scope.selectedDay + 2;
+    $scope.limit = $scope.max - $scope.min + 1;
 
     $scope.atualizarGrade = function() {
       //console.log('atualizar');
@@ -237,6 +240,21 @@ angular.module("icomptvApp")
 
     }
 
+    $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
+    $scope.adicionarPrograma(1, 3, 9, 30, 10, 30, "event-abs-circuit", "Você na TV 2");
+    $scope.adicionarPrograma(2, 3, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(3, 1, 10, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(4, 1, 14, 30, 15, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(5, 2, 10, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(6, 2, 14, 30, 15, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(7, 4, 14, 30, 15, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(8, 4, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
+    $scope.adicionarPrograma(9, 5, 9, 30, 15, 30, "event-abs-circuit", "Você na TV 3");
+    $scope.adicionarPrograma(10, 6, 9, 30, 15, 30, "event-abs-circuit", "Você na TV 4");
+    $scope.adicionarPrograma(10, 6, 15, 30, 16, 30, "event-abs-circuit", "Você na TV 4");
+    $scope.adicionarPrograma(10, 6, 16, 30, 17, 30, "event-abs-circuit", "Você na TV 5");
+    $scope.adicionarPrograma(11, 0, 11, 45, 15, 30, "event-abs-circuit", "Você na TV 6");
+
     //funcao para baixar grade
     $scope.baixarGrade= function(){
     	$.ajax({
@@ -249,11 +267,10 @@ angular.module("icomptvApp")
 		});
     }
 
-    $scope.adicionarPrograma(0, 0, 9, 30, 10, 30, "event-abs-circuit", "Você na TV");
-    $scope.adicionarPrograma(1, 3, 9, 30, 10, 30, "event-abs-circuit", "Você na TV 2");
-    $scope.adicionarPrograma(2, 3, 11, 30, 12, 30, "event-abs-circuit", "Você na TV 3");
-
     jQuery(document).ready(function($){
+
+    //$('.modal-trigger').leanModal();
+    
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 	var transitionsSupported = ( $('.csstransitions').length > 0 );
 	//if browser does not support transitions - use a different event to trigger them

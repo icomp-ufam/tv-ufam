@@ -42,7 +42,7 @@
                 <a class="waves-effect waves-light btn red"><i class="material-icons">today</i></a> <!-- Calendário -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">movie</i></a> <!-- busca dos vídeos -->
                 <!--a href="playlist.xspf" download class="waves-effect waves-light btn red" ng-click="baixarGrade()"><i class="material-icons">system_update_alt</i></a--> <!-- Baixar Grade -->
-                <a class="waves-effect waves-light btn red" ng-click="showExportModal()"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
+                <a class="waves-effect waves-light btn red" data-target="exportmodal" class="btn modal-trigger" ng-click="showExportModal()"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
                 <div class="cd-schedule loading">
 
 				<div class="timeline">
@@ -55,7 +55,7 @@
 
 				<div class="events">
 					<ul>
-						<li class="events-group" ng-repeat="programacao in programacoes | startAt: min | limitTo: max ">
+						<li class="events-group" ng-repeat="programacao in programacoes | startAt: min | limitTo: limit ">
 							<div class="top-info" ng-class="{'current-day': programacao.diaSelecionado}"><span>{{programacao.dia}}</span></div>
 
 							<ul>
@@ -102,16 +102,6 @@
 					<a href="#0" class="close">Close</a>
 				</div>
 
-          <div id="export-modal" class="modal">
-            <div class="modal-content">
-              <h4>Modal Header</h4>
-              <p>A bunch of text</p>
-            </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-            </div>
-          </div>
-
 				<div class="cover-layer"></div>
 			</div> <!-- .cd-schedule -->
                </div>
@@ -123,5 +113,16 @@
           </div>
       </div>
     </main>
+
+  <div id="exportmodal" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
 </body>
 </html>
