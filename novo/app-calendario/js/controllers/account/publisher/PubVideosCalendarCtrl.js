@@ -191,11 +191,11 @@ angular.module("icomptvApp")
     		$scope.atualizarGrade();
     	}
 
-    	console.log("SD:"+$scope.selectedDay);
-    	console.log("CD:"+$scope.currentDay);
-    	console.log("MIN:"+$scope.min);
-    	console.log("MAX:"+$scope.max);
-    	console.log("LIM:"+$scope.limit);
+    	//console.log("SD:"+$scope.selectedDay);
+    	//console.log("CD:"+$scope.currentDay);
+    	//console.log("MIN:"+$scope.min);
+    	//console.log("MAX:"+$scope.max);
+    	//console.log("LIM:"+$scope.limit);
     }
 
     $scope.moveRight = function() {
@@ -217,11 +217,11 @@ angular.module("icomptvApp")
     		$scope.atualizarGrade();
     	}
 
-    	console.log("SD:"+$scope.selectedDay);
-    	console.log("CD:"+$scope.currentDay);
-    	console.log("MIN:"+$scope.min);
-    	console.log("MAX:"+$scope.max);
-    	console.log("LIM:"+$scope.limit);
+    	//console.log("SD:"+$scope.selectedDay);
+    	//console.log("CD:"+$scope.currentDay);
+    	//console.log("MIN:"+$scope.min);
+    	//console.log("MAX:"+$scope.max);
+    	//console.log("LIM:"+$scope.limit);
     }
 
     $scope.moveToToday = function() {
@@ -300,7 +300,7 @@ angular.module("icomptvApp")
 
     $scope.exportModal_getToday = function () {
     	date = $scope.now.getDate();
-    	month = $scope.now.getMonth();
+    	month = $scope.now.getMonth()+1;
 
     	if (date < 10) {
     		date = "0" + date;
