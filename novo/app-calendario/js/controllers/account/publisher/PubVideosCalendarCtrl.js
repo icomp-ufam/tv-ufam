@@ -285,12 +285,6 @@ angular.module("icomptvApp")
     jQuery(document).ready(function($){
 
      $('.modal').modal();
-
-     $('.datepicker').pickadate({
-	    selectMonths: true, // Creates a dropdown to control month
-	    selectYears: 15 // Creates a dropdown of 15 years to control year
-	 });
-        
     
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 	var transitionsSupported = ( $('.csstransitions').length > 0 );
