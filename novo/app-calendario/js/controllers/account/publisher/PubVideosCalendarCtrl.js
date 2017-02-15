@@ -270,6 +270,9 @@ angular.module("icomptvApp")
     	return date + "/" +  month + "/" + $scope.now.getFullYear();
     }
 
+    $scope.exportStartDate = $scope.exportModal_getToday();
+    $scope.exportEndDate = $scope.exportModal_getToday();
+
     //funcao para baixar grade
     $scope.baixarGrade= function(){
     	$.ajax({
@@ -284,7 +287,7 @@ angular.module("icomptvApp")
 
     jQuery(document).ready(function($){
 
-     $('.modal').modal();
+    $('.modal').modal();
     
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 	var transitionsSupported = ( $('.csstransitions').length > 0 );
