@@ -23,16 +23,6 @@ angular.module("icomptvApp")
       }
     };
 
-    $scope.showExportModal = function () {
-    	console.log("show-export-modal");
-    	$('#exportmodal').modal('open');
-    }
-
-    $scope.closeExportModal = function () {
-    	console.log("close-export-modal")
-    	$('#exportmodal').modal('close');
-    }
-
     $scope.dayName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
     $scope.monName = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
@@ -255,6 +245,31 @@ angular.module("icomptvApp")
     $scope.adicionarPrograma(10, 6, 16, 30, 17, 30, "event-abs-circuit", "Você na TV 5");
     $scope.adicionarPrograma(11, 0, 11, 45, 15, 30, "event-abs-circuit", "Você na TV 6");
 
+    $scope.showExportModal = function () {
+    	//console.log("show-export-modal");
+    	$('#export-modal').modal('open');
+    }
+
+    $scope.closeExportModal = function () {
+    	//console.log("close-export-modal")
+    	$('#export-modal').modal('close');
+    }
+
+    $scope.exportModal_getToday = function () {
+    	date = $scope.now.getDate();
+    	month = $scope.now.getMonth();
+
+    	if (date < 10) {
+    		date = "0" + date;
+    	}
+
+    	if (month < 10) {
+    		month = "0" + month;
+    	}
+
+    	return date + "/" +  month + "/" + $scope.now.getFullYear();
+    }
+
     //funcao para baixar grade
     $scope.baixarGrade= function(){
     	$.ajax({
@@ -269,7 +284,13 @@ angular.module("icomptvApp")
 
     jQuery(document).ready(function($){
 
-    //$('.modal-trigger').leanModal();
+     $('.modal').modal();
+
+     $('.datepicker').pickadate({
+	    selectMonths: true, // Creates a dropdown to control month
+	    selectYears: 15 // Creates a dropdown of 15 years to control year
+	 });
+        
     
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 	var transitionsSupported = ( $('.csstransitions').length > 0 );

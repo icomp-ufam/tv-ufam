@@ -627,3 +627,12 @@ Main Components
 .current-day + ul {
   background-color: #e6e6e6 !important;
 }
+
+.export-modal-date-label {
+  margin-right: 5px !important;
+}
+
+.export-modal-date-input {
+  max-width: 20% !important;
+  margin-right: 40px !important;
+}

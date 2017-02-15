@@ -42,65 +42,84 @@
                 <a class="waves-effect waves-light btn red"><i class="material-icons">today</i></a> <!-- Calendário -->
                 <a class="waves-effect waves-light btn red"><i class="material-icons">movie</i></a> <!-- busca dos vídeos -->
                 <!--a href="playlist.xspf" download class="waves-effect waves-light btn red" ng-click="baixarGrade()"><i class="material-icons">system_update_alt</i></a--> <!-- Baixar Grade -->
-                <a class="waves-effect waves-light btn red" data-target="exportmodal" class="btn modal-trigger" ng-click="showExportModal()"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
+                <a class="modal-trigger waves-effect waves-light btn red" ng-click="showExportModal()"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
                 <div class="cd-schedule loading">
 
-				<div class="timeline">
-					<ul>
-						<li ng-repeat="hora in horas">
-							<span>{{hora}}</span>
-						</li>
-					</ul>
-				</div> <!-- .timeline -->
 
-				<div class="events">
-					<ul>
-						<li class="events-group" ng-repeat="programacao in programacoes | startAt: min | limitTo: limit ">
-							<div class="top-info" ng-class="{'current-day': programacao.diaSelecionado}"><span>{{programacao.dia}}</span></div>
+                <div id="export-modal" class="modal">
+                  <div class="modal-content">
+                    <h4>Exportar grade</h4><br>
+                    <p>Selecione um período para exportar:</p>
+                    <br><br>
+                    
+                    <label for="export-start-date" class="export-modal-date-label">À partir de:</label>
+                    <input id="export-start-date" type="text" class="export-modal-date-input" ng-value="exportModal_getToday()">
+                   
+                    <label for="export-end-date" class="export-modal-date-label">Até:</label>
+                    <input id="export-end-date" type="text" class="export-modal-date-input" ng-value="exportModal_getToday()">
 
-							<ul>
-								<li class="single-event" ng-repeat="programa in programacao.programas" data-start={{programa.dataStart}} data-end={{programa.dataEnd}} data-content={{programa.dataContent}} data-event="event-5">
-									<a href="">
-                    <span class="event-date">{{programa.dataStart}} - {{programa.dataEnd}}</span>
-										<em class="event-id" ng-show="false">{{programa.id}}</em>
-										<em class="event-name">{{programa.eventName}}</em>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+                  </div>
+                  <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect waves-light btn red" ng-click="baixarGrade()">Exportar</a>
+                  </div>
+                </div>
 
-				<div class="event-modal">
-					<header class="header">
-						<div class="content">
-              <!-- span class="event-day">Segunda</span-->
-							<span class="event-date"></span>
-							<h3 class="event-name"></h3>
-						</div>
+        				<div class="timeline">
+        					<ul>
+        						<li ng-repeat="hora in horas">
+        							<span>{{hora}}</span>
+        						</li>
+        					</ul>
+        				</div> <!-- .timeline -->
 
-						<div class="header-bg"></div>
-					</header>
+        				<div class="events">
+        					<ul>
+        						<li class="events-group" ng-repeat="programacao in programacoes | startAt: min | limitTo: limit ">
+        							<div class="top-info" ng-class="{'current-day': programacao.diaSelecionado}"><span>{{programacao.dia}}</span></div>
 
-					<div class="body">
-            <div class="event-info">
-            	<div>
-            		<div class="modal-btns">
-            			<p>
-            				<a href="" class="waves-effect waves-light btn red"><i class="material-icons left">edit</i>Editar</a>
-            				<a id="delete-button" href="" class="waves-effect waves-light btn red" ng-click="deleteEvent()"><i class="material-icons left">delete</i>Excluir</a>
-            			</p>
-            		</div>
-            		<div>
-            			{{eventInfo}}
-            		</div>
-            	</div>
-            </div>
-						<div class="body-bg"></div>
-					</div>
+        							<ul>
+        								<li class="single-event" ng-repeat="programa in programacao.programas" data-start={{programa.dataStart}} data-end={{programa.dataEnd}} data-content={{programa.dataContent}} data-event="event-5">
+        									<a href="">
+                            <span class="event-date">{{programa.dataStart}} - {{programa.dataEnd}}</span>
+        										<em class="event-id" ng-show="false">{{programa.id}}</em>
+        										<em class="event-name">{{programa.eventName}}</em>
+        									</a>
+        								</li>
+        							</ul>
+        						</li>
+        					</ul>
+        				</div>
 
-					<a href="#0" class="close">Close</a>
-				</div>
+        				<div class="event-modal">
+        					<header class="header">
+        						<div class="content">
+                      <!-- span class="event-day">Segunda</span-->
+        							<span class="event-date"></span>
+        							<h3 class="event-name"></h3>
+        						</div>
+
+        						<div class="header-bg"></div>
+        					</header>
+
+        					<div class="body">
+                    <div class="event-info">
+                    	<div>
+                    		<div class="modal-btns">
+                    			<p>
+                    				<a href="" class="waves-effect waves-light btn red"><i class="material-icons left">edit</i>Editar</a>
+                    				<a id="delete-button" href="" class="waves-effect waves-light btn red" ng-click="deleteEvent()"><i class="material-icons left">delete</i>Excluir</a>
+                    			</p>
+                    		</div>
+                    		<div>
+                    			{{eventInfo}}
+                    		</div>
+                    	</div>
+                    </div>
+        						<div class="body-bg"></div>
+        					</div>
+
+        					<a href="#0" class="close">Close</a>
+        				</div>
 
 				<div class="cover-layer"></div>
 			</div> <!-- .cd-schedule -->
@@ -113,16 +132,5 @@
           </div>
       </div>
     </main>
-
-  <div id="exportmodal" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
-
 </body>
 </html>
