@@ -146,7 +146,9 @@ angular.module("icomptvApp")
    	    }
 
    	    if ($scope.currentDay == null) $scope.initializeCurrentDay();
-   	    else $scope.currentDay = $scope.currentDay + $scope.diasProgramacao.length -1;
+   	    else {
+   	    	$scope.currentDay = $scope.currentDay + $scope.diasProgramacao.length;
+   	    }
     }
 
     $scope.addPrevWeek();
@@ -179,8 +181,6 @@ angular.module("icomptvApp")
     	if ($scope.selectedDay -1 >= 0) {
     		
     		$scope.programacoes[$scope.selectedDay].diaSelecionado = false;
-    		--$scope.selectedDay;
-    		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
 
     		if (($scope.selectedDay < $scope.programacoes.length - 3) && ($scope.min - 1 >= 0)) {
     			--$scope.min;
@@ -188,10 +188,14 @@ angular.module("icomptvApp")
     		}
     		else {
     			$scope.addPrevWeek();
-    			
-    			$scope.min = $scope.min - 1 + $scope.diasProgramacao.length;
-    			$scope.max = $scope.max - 1 + $scope.diasProgramacao.length;	
+
+    			$scope.min = $scope.min + $scope.diasProgramacao.length - 1;
+    			$scope.max = $scope.max + $scope.diasProgramacao.length - 1;
+    			$scope.selectedDay = $scope.selectedDay + $scope.diasProgramacao.length;
     		}
+
+    		--$scope.selectedDay;
+    		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
 
     		$scope.diaAnterior();
     		$scope.atualizarGrade();
@@ -208,13 +212,16 @@ angular.module("icomptvApp")
     	if ($scope.selectedDay +1 < $scope.programacoes.length) {
     		
     		$scope.programacoes[$scope.selectedDay].diaSelecionado = false;
+
+    		if (!(($scope.selectedDay > 2) && ($scope.max + 1 < $scope.programacoes.length))) {
+    			$scope.addNextWeek();
+    		}
+
+    		++$scope.min;
+    		++$scope.max;
+
     		++$scope.selectedDay;
     		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
-
-    		if (($scope.selectedDay > 2) && ($scope.max + 1 < $scope.programacoes.length)) {
-    			++$scope.min;
-    			++$scope.max;
-    		}
 
     		$scope.proximoDia();
     		$scope.atualizarGrade();
