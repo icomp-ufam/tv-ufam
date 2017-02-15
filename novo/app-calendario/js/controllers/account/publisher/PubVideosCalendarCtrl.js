@@ -114,18 +114,44 @@ angular.module("icomptvApp")
     //Representa toda a programacao
     $scope.programacoes = [];
 
-    for (i=0, len = $scope.diasProgramacao.length; i<len; ++i) {
-      $scope.programacoes.push(
+    $scope.currentDay = null;
+
+    $scope.initializeCurrentDay = function () {
+    	$scope.currentDay = $scope.now.getDay();
+    }
+
+    $scope.addNextWeek = function () {
+    	for (i=0, len = $scope.diasProgramacao.length; i<len; ++i) {
+      		$scope.programacoes.push(
                                 {
                                   dia: $scope.diasProgramacao[i],
 
                                   programas: []
                                 }
                               );
+   	    }
+
+   	    if ($scope.currentDay == null) $scope.initializeCurrentDay();
     }
 
-    //Representa o dia atual
-    $scope.currentDay = $scope.now.getDay();
+    $scope.addPrevWeek = function () {
+    	for (i = $scope.diasProgramacao.length - 1; i >= 0; --i) {
+      		$scope.programacoes.unshift(
+                                {
+                                  dia: $scope.diasProgramacao[i],
+
+                                  programas: []
+                                }
+                              );
+   	    }
+
+   	    if ($scope.currentDay == null) $scope.initializeCurrentDay();
+   	    else $scope.currentDay = $scope.currentDay + $scope.diasProgramacao.length -1;
+    }
+
+    $scope.addPrevWeek();
+
+    console.log($scope.currentDay);
 
     //Representa o dia escolhido
     $scope.selectedDay = $scope.currentDay;
@@ -160,14 +186,22 @@ angular.module("icomptvApp")
     			--$scope.min;
     			--$scope.max;
     		}
+    		else {
+    			$scope.addPrevWeek();
+    			
+    			$scope.min = $scope.min - 1 + $scope.diasProgramacao.length;
+    			$scope.max = $scope.max - 1 + $scope.diasProgramacao.length;	
+    		}
 
     		$scope.diaAnterior();
     		$scope.atualizarGrade();
     	}
 
-    	//console.log($scope.selectedDay);
-    	//console.log($scope.min);
-    	//console.log($scope.max);
+    	console.log("SD:"+$scope.selectedDay);
+    	console.log("CD:"+$scope.currentDay);
+    	console.log("MIN:"+$scope.min);
+    	console.log("MAX:"+$scope.max);
+    	console.log("LIM:"+$scope.limit);
     }
 
     $scope.moveRight = function() {
@@ -186,9 +220,11 @@ angular.module("icomptvApp")
     		$scope.atualizarGrade();
     	}
 
-    	//console.log($scope.selectedDay);
-    	//console.log($scope.min);
-    	//console.log($scope.max);
+    	console.log("SD:"+$scope.selectedDay);
+    	console.log("CD:"+$scope.currentDay);
+    	console.log("MIN:"+$scope.min);
+    	console.log("MAX:"+$scope.max);
+    	console.log("LIM:"+$scope.limit);
     }
 
     $scope.moveToToday = function() {
