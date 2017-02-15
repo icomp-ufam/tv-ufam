@@ -125,7 +125,7 @@ angular.module("icomptvApp")
     }
 
     //Representa o dia atual
-    $scope.currentDay = 3;
+    $scope.currentDay = $scope.now.getDay();
 
     //Representa o dia escolhido
     $scope.selectedDay = $scope.currentDay;
