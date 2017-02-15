@@ -104,18 +104,46 @@ angular.module("icomptvApp")
     //Representa toda a programacao
     $scope.programacoes = [];
 
-    for (i=0, len = $scope.diasProgramacao.length; i<len; ++i) {
-      $scope.programacoes.push(
+    $scope.currentDay = null;
+
+    $scope.initializeCurrentDay = function () {
+    	$scope.currentDay = $scope.now.getDay();
+    }
+
+    $scope.addNextWeek = function () {
+    	for (i=0, len = $scope.diasProgramacao.length; i<len; ++i) {
+      		$scope.programacoes.push(
                                 {
                                   dia: $scope.diasProgramacao[i],
 
                                   programas: []
                                 }
                               );
+   	    }
+
+   	    if ($scope.currentDay == null) $scope.initializeCurrentDay();
     }
 
-    //Representa o dia atual
-    $scope.currentDay = $scope.now.getDay();
+    $scope.addPrevWeek = function () {
+    	for (i = $scope.diasProgramacao.length - 1; i >= 0; --i) {
+      		$scope.programacoes.unshift(
+                                {
+                                  dia: $scope.diasProgramacao[i],
+
+                                  programas: []
+                                }
+                              );
+   	    }
+
+   	    if ($scope.currentDay == null) $scope.initializeCurrentDay();
+   	    else {
+   	    	$scope.currentDay = $scope.currentDay + $scope.diasProgramacao.length;
+   	    }
+    }
+
+    $scope.addPrevWeek();
+
+    console.log($scope.currentDay);
 
     //Representa o dia escolhido
     $scope.selectedDay = $scope.currentDay;
@@ -143,42 +171,57 @@ angular.module("icomptvApp")
     	if ($scope.selectedDay -1 >= 0) {
     		
     		$scope.programacoes[$scope.selectedDay].diaSelecionado = false;
-    		--$scope.selectedDay;
-    		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
 
     		if (($scope.selectedDay < $scope.programacoes.length - 3) && ($scope.min - 1 >= 0)) {
     			--$scope.min;
     			--$scope.max;
     		}
+    		else {
+    			$scope.addPrevWeek();
+
+    			$scope.min = $scope.min + $scope.diasProgramacao.length - 1;
+    			$scope.max = $scope.max + $scope.diasProgramacao.length - 1;
+    			$scope.selectedDay = $scope.selectedDay + $scope.diasProgramacao.length;
+    		}
+
+    		--$scope.selectedDay;
+    		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
 
     		$scope.diaAnterior();
     		$scope.atualizarGrade();
     	}
 
-    	//console.log($scope.selectedDay);
-    	//console.log($scope.min);
-    	//console.log($scope.max);
+    	console.log("SD:"+$scope.selectedDay);
+    	console.log("CD:"+$scope.currentDay);
+    	console.log("MIN:"+$scope.min);
+    	console.log("MAX:"+$scope.max);
+    	console.log("LIM:"+$scope.limit);
     }
 
     $scope.moveRight = function() {
     	if ($scope.selectedDay +1 < $scope.programacoes.length) {
     		
     		$scope.programacoes[$scope.selectedDay].diaSelecionado = false;
+
+    		if (!(($scope.selectedDay > 2) && ($scope.max + 1 < $scope.programacoes.length))) {
+    			$scope.addNextWeek();
+    		}
+
+    		++$scope.min;
+    		++$scope.max;
+
     		++$scope.selectedDay;
     		$scope.programacoes[$scope.selectedDay].diaSelecionado = true;
-
-    		if (($scope.selectedDay > 2) && ($scope.max + 1 < $scope.programacoes.length)) {
-    			++$scope.min;
-    			++$scope.max;
-    		}
 
     		$scope.proximoDia();
     		$scope.atualizarGrade();
     	}
 
-    	//console.log($scope.selectedDay);
-    	//console.log($scope.min);
-    	//console.log($scope.max);
+    	console.log("SD:"+$scope.selectedDay);
+    	console.log("CD:"+$scope.currentDay);
+    	console.log("MIN:"+$scope.min);
+    	console.log("MAX:"+$scope.max);
+    	console.log("LIM:"+$scope.limit);
     }
 
     $scope.moveToToday = function() {
