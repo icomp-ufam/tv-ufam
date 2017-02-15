@@ -1,6 +1,7 @@
 <?php
 
 $param = array("file:///home/duivilly/V%C3%ADdeos/VID-20170203-WA0001.mp4", "file:///home/duivilly/V%C3%ADdeos/VID-20170210-WA0000.mp4");
+//$param = array("file:///home/duivilly/V%C3%ADdeos/VID-20170203-WA0001.mp4");
 
 $xml= 
 "<?xml version='1.0' encoding='UTF-8'?>
