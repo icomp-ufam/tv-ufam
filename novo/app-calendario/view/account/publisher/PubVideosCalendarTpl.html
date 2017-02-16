@@ -45,26 +45,6 @@
                 <a class="modal-trigger waves-effect waves-light btn red" ng-click="showExportModal()"><i class="material-icons">system_update_alt</i></a> <!-- Baixar Grade -->
                 <div class="cd-schedule loading">
 
-
-                <div id="export-modal" class="modal">
-                  <div class="modal-content">
-                    <h4>Exportar grade</h4><br>
-                    <p>Selecione um período para exportar:</p>
-                    <br><br>
-                    
-                    <label for="export-start-date" class="export-modal-date-label">À partir de:</label>
-                    <input id="export-start-date" type="text" class="export-modal-date-input" ng-model="exportStartDate">
-                   
-                    <label for="export-end-date" class="export-modal-date-label">Até:</label>
-                    <input id="export-end-date" type="text" class="export-modal-date-input" ng-model="exportEndDate">
-
-                  </div>
-                  <div class="modal-footer">
-                    <a ng-click="closeExportModal()" class="modal-footer-button modal-action modal-close waves-effect waves-light btn red">Cancelar</a>
-                    <a href="playlist.xspf" download class="modal-footer-button modal-action modal-close waves-effect waves-light btn red" ng-click="baixarGrade()">Exportar</a>
-                  </div>
-                </div>
-
         				<div class="timeline">
         					<ul>
         						<li ng-repeat="hora in horas">
@@ -133,5 +113,24 @@
           </div>
       </div>
     </main>
+
+    <div id="export-modal" class="modal">
+      <div class="modal-content">
+        <h4>Exportar grade</h4><br>
+        <p>Selecione um período para exportar:</p>
+        <br><br>
+        
+        <label for="export-start-date" class="export-modal-date-label">À partir de:</label>
+        <input id="export-start-date" type="text" class="export-modal-date-input" ng-model="exportStartDate">
+       
+        <label for="export-end-date" class="export-modal-date-label">Até:</label>
+        <input id="export-end-date" type="text" class="export-modal-date-input" ng-model="exportEndDate">
+
+      </div>
+      <div class="modal-footer">
+        <a ng-click="closeExportModal()" class="modal-footer-button modal-action modal-close waves-effect waves-light btn red">Cancelar</a>
+        <a href="playlist.xspf" download class="modal-footer-button modal-action modal-close waves-effect waves-light btn red" ng-click="baixarGrade()">Exportar</a>
+      </div>
+    </div>
 </body>
 </html>
