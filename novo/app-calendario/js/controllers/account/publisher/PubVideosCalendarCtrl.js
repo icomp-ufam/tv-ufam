@@ -343,16 +343,14 @@ angular.module("icomptvApp")
     $scope.exportStartDate = $scope.exportModal_getToday();
     $scope.exportEndDate = $scope.exportModal_getToday();
 
-    //funcao para baixar grade
+    //funcao para exportar grade
     $scope.baixarGrade= function(){
-    	$.ajax({
-			type: 'post',
-		 	url: 'xml.php',
-			data: {
-				location: "",
-		    	duration: ""
-		  } /* ... */
+    	var chamadaPHP= $.ajax({
+            			type: 'POST',
+            		 	url: 'baixarGrade.php',
+            			data: {	location: ""}
 		});
+        console.log('executou exportar grade');
     }
 
     jQuery(document).ready(function($){
