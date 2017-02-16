@@ -30,21 +30,38 @@ angular.module("icomptvApp")
     	$scope.dataCorrente = dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear();
     }
 
+    $scope.construirDataGrid = function (date) {
+    	day = date.getDate();
+    	month = date.getMonth()+1;
+
+    	if (day < 10) {
+    		day = "0" + day;
+    	}
+
+    	if (month < 10) {
+    		month = "0" + month;
+    	}
+
+    	return $scope.dayName[date.getDay()] + " (" + day + "/" +  month + ")";
+    }
+
+    $scope.now = new Date;
+
     $scope.inicializarData = function () {
-    	$scope.now = new Date;
-    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    	$scope.sd = new Date;
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.sd);
     }
 
     $scope.inicializarData();
 
     $scope.proximoDia = function () {
-    	$scope.now.setDate($scope.now.getDate() + 1);
-    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    	$scope.sd.setDate($scope.sd.getDate() + 1);
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.sd);
     }
 
     $scope.diaAnterior = function () {
-    	$scope.now.setDate($scope.now.getDate() - 1);
-    	$scope.construirData($scope.dayName, $scope.monName, $scope.now);
+    	$scope.sd.setDate($scope.sd.getDate() - 1);
+    	$scope.construirData($scope.dayName, $scope.monName, $scope.sd);
     }
 
     $scope.diasProgramacao = $scope.dayName;
@@ -111,39 +128,53 @@ angular.module("icomptvApp")
     }
 
     $scope.addNextWeek = function () {
+    	if ($scope.currentDay == null) 
+    		$scope.initializeCurrentDay();
+
     	for (i=0, len = $scope.diasProgramacao.length; i<len; ++i) {
+    		diaAtual = new Date;
+      		diaAtual.setDate($scope.now.getDate() + $scope.programacoes.length - $scope.currentDay);
+
       		$scope.programacoes.push(
                                 {
-                                  dia: $scope.diasProgramacao[i],
+                                  //dia: $scope.diasProgramacao[i],
+                                  dia: $scope.construirDataGrid(diaAtual),
 
                                   programas: []
                                 }
                               );
    	    }
-
-   	    if ($scope.currentDay == null) $scope.initializeCurrentDay();
     }
 
     $scope.addPrevWeek = function () {
+    	if ($scope.currentDay == null) 
+    		$scope.initializeCurrentDay();
+
     	for (i = $scope.diasProgramacao.length - 1; i >= 0; --i) {
+    		diaAtual = new Date;
+    		index = $scope.currentDay;
+    		console.log(index);
+
+      		diaAtual.setDate($scope.now.getDate() - index);
+
+
       		$scope.programacoes.unshift(
                                 {
-                                  dia: $scope.diasProgramacao[i],
+                                  dia: $scope.construirDataGrid(diaAtual),
 
                                   programas: []
                                 }
                               );
    	    }
 
-   	    if ($scope.currentDay == null) $scope.initializeCurrentDay();
-   	    else {
+   	    
+   	    if ($scope.currentDay != null)
    	    	$scope.currentDay = $scope.currentDay + $scope.diasProgramacao.length;
-   	    }
     }
 
-    $scope.addPrevWeek();
+    $scope.addNextWeek();
 
-    console.log($scope.currentDay);
+    //console.log($scope.currentDay);
 
     //Representa o dia escolhido
     $scope.selectedDay = $scope.currentDay;
@@ -299,8 +330,8 @@ angular.module("icomptvApp")
     }
 
     $scope.exportModal_getToday = function () {
-    	date = $scope.now.getDate();
-    	month = $scope.now.getMonth()+1;
+    	date = $scope.sd.getDate();
+    	month = $scope.sd.getMonth()+1;
 
     	if (date < 10) {
     		date = "0" + date;
@@ -310,7 +341,7 @@ angular.module("icomptvApp")
     		month = "0" + month;
     	}
 
-    	return date + "/" +  month + "/" + $scope.now.getFullYear();
+    	return date + "/" +  month + "/" + $scope.sd.getFullYear();
     }
 
     $scope.exportStartDate = $scope.exportModal_getToday();
