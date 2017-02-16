@@ -137,7 +137,6 @@ angular.module("icomptvApp")
 
       		$scope.programacoes.push(
                                 {
-                                  //dia: $scope.diasProgramacao[i],
                                   dia: $scope.construirDataGrid(diaAtual),
 
                                   programas: []
