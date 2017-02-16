@@ -152,10 +152,7 @@ angular.module("icomptvApp")
 
     	for (i = $scope.diasProgramacao.length - 1; i >= 0; --i) {
     		diaAtual = new Date;
-    		index = $scope.currentDay;
-    		console.log(index);
-
-      		diaAtual.setDate($scope.now.getDate() - index);
+      		diaAtual.setDate($scope.now.getDate() - $scope.currentDay - $scope.diasProgramacao.length + i);
 
 
       		$scope.programacoes.unshift(
